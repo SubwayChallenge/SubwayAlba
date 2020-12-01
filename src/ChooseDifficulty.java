@@ -14,20 +14,20 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 	int hard=0;//236, 240, 244, 248, 257, 261, 265, 275
 
 	//첫번째 줄
-	ImageIcon easy1= new ImageIcon("resource/tshirt.png");//74
-	ImageIcon easy2= new ImageIcon("resource/long.png");//77
-	ImageIcon easy3= new ImageIcon("resource/hoodie.png");//80
+	//ImageIcon easy1= new ImageIcon("resource/tshirt.png");//74
+//	ImageIcon easy2= new ImageIcon("resource/long.png");//77
+	//ImageIcon easy3= new ImageIcon("resource/hoodie.png");//80
 	//두번째 줄
-	ImageIcon normal1= new ImageIcon("resource/skirt.png");//84
-	ImageIcon normal2= new ImageIcon("resource/shortpants.png");//87
-	ImageIcon normal3= new ImageIcon("resource/long-pants.png");//90
+	//ImageIcon normal1= new ImageIcon("resource/skirt.png");//84
+	//ImageIcon normal2= new ImageIcon("resource/shortpants.png");//87
+	//ImageIcon normal3= new ImageIcon("resource/long-pants.png");//90
 	//세번째 줄
-	ImageIcon hard1=new ImageIcon("resource/logo-shoe.png");//94
-	ImageIcon hard2=new ImageIcon("resource/heels.png");//97
-	ImageIcon hard3=new ImageIcon("resource/slipper.png");//100
+	//ImageIcon hard1=new ImageIcon("resource/logo-shoe.png");//94
+	//ImageIcon hard2=new ImageIcon("resource/heels.png");//97
+	//ImageIcon hard3=new ImageIcon("resource/slipper.png");//100
 
 	ImageIcon backImg=new ImageIcon("resource/background2.png");//71
-	ImageIcon selectedDifficulty=new ImageIcon("resource/empty_ring.png");//104, 누를 때 생기는 원
+	ImageIcon selectedDifficulty=new ImageIcon("resource/checked.png");//104, 누를 때 생기는 원
 
 	ImageIcon easy1Img,easy2Img,easy3Img;//각각 76,108 - 79,109 - 82,110
 	ImageIcon normal1Img,normal2Img,normal3Img;//각각 86,112 - 89,113 - 92,114
@@ -68,55 +68,55 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		g2.drawImage(backImg.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
 
 		//easy 선택
-		before=easy1.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-		easy1Img=new ImageIcon(after);
-		before=easy2.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-		easy2Img=new ImageIcon(after);
-		before=easy3.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-		easy3Img=new ImageIcon(after);
+		//before=easy1.getImage();
+		//after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		//easy1Img=new ImageIcon(after);
+		//before=easy2.getImage();
+		//after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		//easy2Img=new ImageIcon(after);
+		//before=easy3.getImage();
+		//after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		//easy3Img=new ImageIcon(after);
 		//normal 선택
-		before=normal1.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-		normal1Img=new ImageIcon(after);
-		before=normal2.getImage();
-		after=before.getScaledInstance(180, 150, java.awt.Image.SCALE_SMOOTH);
-		normal2Img=new ImageIcon(after);
-		before=normal3.getImage();
-		after=before.getScaledInstance(180, 150, java.awt.Image.SCALE_SMOOTH);
-		normal3Img=new ImageIcon(after);
+		//before=normal1.getImage();
+		//after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		//normal1Img=new ImageIcon(after);
+		//before=normal2.getImage();
+		///after=before.getScaledInstance(180, 150, java.awt.Image.SCALE_SMOOTH);
+		//normal2Img=new ImageIcon(after);
+		//before=normal3.getImage();
+		//after=before.getScaledInstance(180, 150, java.awt.Image.SCALE_SMOOTH);
+		//normal3Img=new ImageIcon(after);
 		//hard 선택
-		before=hard1.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-		hard1Img=new ImageIcon(after);
-		before=hard2.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-		hard2Img=new ImageIcon(after);
-		before=hard3.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
-		hard3Img=new ImageIcon(after);
+		//before=hard1.getImage();
+		//after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		//hard1Img=new ImageIcon(after);
+		//before=hard2.getImage();
+		//after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		//hard2Img=new ImageIcon(after);
+		//before=hard3.getImage();
+		//after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		//hard3Img=new ImageIcon(after);
 		//선택했을 때 원 생기는 거
-		before=selectedDifficulty.getImage();
-		after=before.getScaledInstance(180, 180, java.awt.Image.SCALE_SMOOTH);
-		check=new ImageIcon(after);
+		//before=selectedDifficulty.getImage();
+		//after=before.getScaledInstance(180, 180, java.awt.Image.SCALE_SMOOTH);
+		//check=new ImageIcon(after);
 		
-		g2.drawImage(easy1Img.getImage(),row1,col1,this);
-		g2.drawImage(easy2Img.getImage(), row2,col1,this);
-		g2.drawImage(easy3Img.getImage(),row3,col1,this);
+		//g2.drawImage(easy1Img.getImage(),row1,col1,this);
+		//g2.drawImage(easy2Img.getImage(), row2,col1,this);
+		//g2.drawImage(easy3Img.getImage(),row3,col1,this);
 
-		g2.drawImage(normal1Img.getImage(),row1,col2,this);
-		g2.drawImage(normal2Img.getImage(), row2,col2,this);
-		g2.drawImage(normal3Img.getImage(),row3,col2,this);
+		//g2.drawImage(normal1Img.getImage(),row1,col2,this);
+		//g2.drawImage(normal2Img.getImage(), row2,col2,this);
+		//g2.drawImage(normal3Img.getImage(),row3,col2,this);
 		
-		g2.drawImage(hard1Img.getImage(),row1,col3,this);
-		g2.drawImage(hard2Img.getImage(), row2,col3,this);
-		g2.drawImage(hard3Img.getImage(),row3,col3,this);
+		//g2.drawImage(hard1Img.getImage(),row1,col3,this);
+		//g2.drawImage(hard2Img.getImage(), row2,col3,this);
+		//g2.drawImage(hard3Img.getImage(),row3,col3,this);
 		
-		g2.drawImage(check.getImage(), check_row1,check_col1,this);
-		g2.drawImage(check.getImage(), check_row2,check_col2,this);
-		g2.drawImage(check.getImage(), check_row3,check_col3,this);
+		//g2.drawImage(check.getImage(), check_row1,check_col1,this);
+		//g2.drawImage(check.getImage(), check_row2,check_col2,this);
+		//g2.drawImage(check.getImage(), check_row3,check_col3,this);
 
 
 		Font font1 = new Font("Verdana", Font.PLAIN, 30);//font for price of item

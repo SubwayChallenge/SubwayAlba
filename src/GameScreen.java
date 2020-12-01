@@ -82,7 +82,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	/*method*/
 	public GameScreen(CustomMouse inputMouseListener, GameManagment inputRootFrame, int inputTargetScore, int inputTimer) {
 		
-		background = new ImageIcon("resource/background3.jpg");
+		background = new ImageIcon("resource/background3.png");
 		
 		mouse 	  = inputMouseListener;
 		rootScreen = inputRootFrame;

@@ -17,14 +17,12 @@ public class MainScreen extends JPanel implements Runnable{
 	private boolean flag; //43, 51, 59
 
 	Image backgroundImg; //34, 98
-	Image mainLogo; //35, 99
 	
 	public MainScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagment inputMainScreen) {
-		//super();
+		//super(); 안해준 이유?
 
 
-		backgroundImg = new ImageIcon("resource/background.jpg").getImage();
-		//mainLogo = new ImageIcon("resource/logo.png").getImage();
+		backgroundImg = new ImageIcon("resource/background.png").getImage();
 
 		planeWidth  = screenWidth; //여기에만 쓰임
 		planeHeight = screenHeight; //여기에만 쓰임
@@ -44,6 +42,7 @@ public class MainScreen extends JPanel implements Runnable{
 		}
 	}
 
+
 	public void run() {
 		try{
 			while(!flag){
@@ -61,35 +60,39 @@ public class MainScreen extends JPanel implements Runnable{
 	}
 	
 	private void buttonEvent() {
-		if(mouse.getMouseXPos()>353 && mouse.getMouseXPos()<927 && mouse.getMouseYPos()>455 && mouse.getMouseYPos()<718) {
+
+		//System.out.println(mouse.getMouseXPos());
+		if(mouse.getMouseXPos()>540 && mouse.getMouseXPos()<660 && mouse.getMouseYPos()>300 && mouse.getMouseYPos()<440) {
 			startBtnImg = new ImageIcon("resource/startbutton2.png").getImage();
 		}
 		else{
 			startBtnImg = new ImageIcon("resource/startbutton1.png").getImage();
 		}
 
-		if(mouse.getMouseXPos()>1100 && mouse.getMouseXPos()<1180 && mouse.getMouseYPos()>30 && mouse.getMouseYPos()<110) {
+		if(mouse.getMouseXPos()>1060 && mouse.getMouseXPos()<1145 && mouse.getMouseYPos()>40 && mouse.getMouseYPos()<160) {
 			endImg = new ImageIcon("resource/exit2.png").getImage();
 		}
 		else{
 			endImg = new ImageIcon("resource/exit1.png").getImage();
 		}
 
-		if(mouse.getMouseClickXPos()>353 && mouse.getMouseClickXPos()<927 && mouse.getMouseClickYPos()>455 && mouse.getMouseClickYPos()<718) {
-			System.out.println("click");
+		if(mouse.getMouseClickXPos()>540 && mouse.getMouseClickXPos()<660 && mouse.getMouseClickYPos()>300 && mouse.getMouseClickYPos()<440) {
 			clearExitScene();
 			mainScreen.moveToChooseDiffScreen();
 		}
-		else if(mouse.getMouseClickXPos()>1170 && mouse.getMouseClickXPos()<1250 && mouse.getMouseClickYPos()>30 && mouse.getMouseClickYPos()<110) {
-			System.exit(0);
+		if(mouse.getMouseClickXPos()>1060 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>40 && mouse.getMouseClickYPos()<160) {
+			try {
+				mainSceneT.sleep(2000);     //2초동안 잠시 정지시킨다
+			} catch (Exception e) {
+			}
+			System.exit(0); //종료 안됨
 		}
 	}
 
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(backgroundImg, 0, 0, getWidth(), getHeight(), this);
-		g2.drawImage(mainLogo, 400, 70, 430, 380, this);
-		g2.drawImage(startBtnImg, 330, 455, this);
-		g2.drawImage(endImg, 1100, 30, this);
+		g2.drawImage(startBtnImg, 540, 280, 120, 120,this);
+		g2.drawImage(endImg, 1060, 40, 80, 80, this);
 	}
 }

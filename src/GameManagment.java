@@ -122,7 +122,7 @@ public class GameManagment extends JFrame {
 		rootScreen = this;
 		backgroundMusic = null;
 		
-		setTitle("SSUBWAY");
+		setTitle("SUBWAY_ALBA");
 		setSize(640, 800);
 		setResizable(false);
 		setVisible(true);
