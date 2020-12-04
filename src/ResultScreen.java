@@ -73,7 +73,7 @@ public class ResultScreen extends JPanel {
 			
 			g.drawImage(failImg.getImage(), 0, 0, getWidth(), getHeight(), this);
 			g.drawImage(retryBtn, 500, 500, 80, 80, this);
-			g.drawString("You missed "+ resultSandwichCount + " sandwiches", this.getWidth() / 3 , 600); //목표 - 만든수량 할 것임
+			g.drawString("You made only "+ resultSandwichCount + " sandwiches", this.getWidth() / 3 , 630); //목표 - 만든수량 할 것임
 		}
 	}
 }
