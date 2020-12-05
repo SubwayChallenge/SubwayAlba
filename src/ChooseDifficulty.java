@@ -152,11 +152,11 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean normal2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col2-100&&yy<=col2+100)); //206, 225
 		boolean normal3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col2-100&&yy<=col2+100)); //210, 229
 		
-		boolean hard1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col3-100&&yy<=col3+100)); //239, 256
-		boolean hard2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col3-100&&yy<=col3+100)); //243, 260
-		boolean hard3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col3-100&&yy<=col3+100)); //247, 264
+		boolean hard1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col3-100&&yy<=col3+100));
+		boolean hard2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col3-100&&yy<=col3+100));
+		boolean hard3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col3-100&&yy<=col3+100));
 		
-		boolean isStart=((xx>=30&&xx<=350)&&(yy>=450&&yy<=600)); //270
+		boolean isStart=((xx>=30&&xx<=350)&&(yy>=450&&yy<=600));
 		
 		
 		if(easyFlag) {
@@ -279,19 +279,19 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		int xx = mouse.getMouseXPos();
 		int yy = mouse.getMouseYPos();
 		
-		boolean easy1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col1-100&&yy<=col1+100)); //298
-		boolean easy2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col1-100&&yy<=col1+100)); //300
-		boolean easy3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col1-100&&yy<=col1+100)); //302
+		boolean easy1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col1-100&&yy<=col1+100));
+		boolean easy2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col1-100&&yy<=col1+100));
+		boolean easy3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col1-100&&yy<=col1+100));
 		
-		boolean normal1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col2-100&&yy<=col2+100)); //305
-		boolean normal2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col2-100&&yy<=col2+100)); //307
-		boolean normal3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col2-100&&yy<=col2+100)); //309
+		boolean normal1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col2-100&&yy<=col2+100));
+		boolean normal2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col2-100&&yy<=col2+100));
+		boolean normal3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col2-100&&yy<=col2+100));
 		
-		boolean hard1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col3-100&&yy<=col3+100)); //312
-		boolean hard2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col3-100&&yy<=col3+100)); //314
-		boolean hard3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col3-100&&yy<=col3+100)); //316
+		boolean hard1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col3-100&&yy<=col3+100));
+		boolean hard2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col3-100&&yy<=col3+100));
+		boolean hard3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col3-100&&yy<=col3+100));
 		
-		boolean isStart=((xx>=30&&xx<=350)&&(yy>=450&&yy<=600));//320, check for the start
+		boolean isStart=((xx>=30&&xx<=350)&&(yy>=450&&yy<=600));//check for the start
 		
 		if(easy1)
 			price=5;

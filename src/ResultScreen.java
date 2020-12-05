@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class ResultScreen extends JPanel {
 	Container contentPane;
-	//ImageIcon retry = new ImageIcon("resource/retry.png");
+
 	ImageIcon successImg = new ImageIcon("resource/success.png");
 	ImageIcon failImg = new ImageIcon("resource/failed.png");
 	private boolean results;
@@ -18,22 +18,15 @@ public class ResultScreen extends JPanel {
 	private Image retryBtn;
 	
 	ResultScreen(boolean gameResult, int sandwichCount, int leftTime){
-		//this.setLayout(new GridBagLayout());
 
-		results = gameResult;//여기에만 쓰임
-		resultTime = leftTime;//여기에만 쓰임
-		resultSandwichCount = sandwichCount;//여기에만 쓰임
+		results = gameResult;
+		resultTime = leftTime;
+		resultSandwichCount = sandwichCount;
 
 		CustomMouse inputMouseListener = new CustomMouse();
-		mouse 	  = inputMouseListener; //여기에만 쓰임
+		mouse 	  = inputMouseListener;
 	}
-	/*public void clearExitScene() {
-		if(mainSceneT != null) {
-			flag = true;
-			mainSceneT.interrupt();
-			System.gc();
-		}
-	}*/
+
 	private void buttonEvent() {
 		if(mouse.getMouseXPos()>1060 && mouse.getMouseXPos()<1145 && mouse.getMouseYPos()>650 && mouse.getMouseYPos()<670) {
 			retryBtn = new ImageIcon("resource/again2.png").getImage();
@@ -41,16 +34,11 @@ public class ResultScreen extends JPanel {
 		else{
 			retryBtn = new ImageIcon("resource/again1.png").getImage();
 		}
-
-		/*if(mouse.getMouseClickXPos()>1060 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>650 && mouse.getMouseClickYPos()<670) {
-			clearExitScene();
-			mainScreen.moveToChooseDiffScreen();
-		}*/
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		Font resultFont = new Font("Verdana", Font.PLAIN, 30); //52, 62줄
+		Font resultFont = new Font("Verdana", Font.PLAIN, 30);
 		
 		if(results) {
 			
@@ -62,10 +50,10 @@ public class ResultScreen extends JPanel {
 			int sec  = resultTime % 60;
 		    int min  = resultTime / 60 % 60; // 목표시간 빼기 결과시간 할 것임
 		    
-			g.drawString( min + " : " + sec, 1120 , 30);//string for price of items
+			g.drawString( min + " : " + sec, 1125 , 30);
 			g.setColor(Color.yellow);
-			g.drawString(min + " : " + sec, 1120 , 65);
-			//g.drawImage(retryBtn, 0, 0, this);
+			g.drawString(min + " : " + sec, 1125 , 65);
+
 		}
 		else{
 			g.setFont(resultFont);

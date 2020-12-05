@@ -2,17 +2,17 @@ import javax.swing.*;
 
 public class GameManagment extends JFrame {
 	
-	private GameManagment rootScreen; //53, 68, 82, 133
-	private MainScreen mainScreen; //30, 31, 68, 70
-	private GameScreen gameScreen; //34, 35, 36, 53, 55, 56
-	private ChooseDifficulty chooseDifficulty; //39, 40, 82, 84
-	private ResultScreen resultScreen; //43, 44, 96, 99
+	private GameManagment rootScreen;
+	private MainScreen mainScreen;
+	private GameScreen gameScreen;
+	private ChooseDifficulty chooseDifficulty;
+	private ResultScreen resultScreen;
 	
-	BgmPlayer backgroundMusic; //115, 116, 117, 120, 134
+	BgmPlayer backgroundMusic;
 	
 	private CustomMouse mouseEventListener;
 	
-	public void clearFrame() { //51, 66, 80, 94
+	public void clearFrame() {
 		
 		if(mainScreen != null) {
 			remove(mainScreen);
@@ -34,7 +34,7 @@ public class GameManagment extends JFrame {
 		repaint();
 	}
 	
-	public void moveToGameScreen(int targetScore) { //CS 266
+	public void moveToGameScreen(int targetScore) {
 		clearFrame();
 
 		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60);
@@ -49,7 +49,7 @@ public class GameManagment extends JFrame {
 		revalidate();
 	}
 	
-	public void moveToMainScreen() { //146
+	public void moveToMainScreen() {
 		clearFrame();
 
 		mainScreen = new MainScreen(1280, 720, mouseEventListener, rootScreen);
@@ -63,7 +63,7 @@ public class GameManagment extends JFrame {
 		revalidate();
 	}
 	
-	public void moveToChooseDiffScreen() { //MS 89
+	public void moveToChooseDiffScreen() {
 		clearFrame();
 
 		chooseDifficulty = new ChooseDifficulty(mouseEventListener, rootScreen);
@@ -77,7 +77,7 @@ public class GameManagment extends JFrame {
 		revalidate();
 	}
 	
-	public void moveToResultScreen(boolean inputResult, int inputBurgerCount, int inputTimer) { //GS 140, 298
+	public void moveToResultScreen(boolean inputResult, int inputBurgerCount, int inputTimer) {
 		clearFrame();
 
 		resultScreen = new ResultScreen(inputResult, inputBurgerCount, inputTimer);
@@ -94,12 +94,12 @@ public class GameManagment extends JFrame {
 		revalidate();
 	}
 	
-	public void playEffectSound(String fileName) //GS 262, 275, 288, 291
+	public void playEffectSound(String fileName)
 	{
-		BgmPlayer effectSound = new BgmPlayer(fileName);//쓰이지 않음
+		BgmPlayer effectSound = new BgmPlayer(fileName);
 	}
 	
-	public void playBackgroundMusic(String fileName) { //58, 72, 86, 102, 104
+	public void playBackgroundMusic(String fileName) {
 
 		if(backgroundMusic != null){
 			backgroundMusic.stop();
@@ -107,15 +107,7 @@ public class GameManagment extends JFrame {
     	}
 
 		backgroundMusic = new BgmPlayer(fileName);
-    	
-        /*
-        AudioInputStream sound = AudioSystem.getAudioInputStream(new File(fileName));
-        Clip clip = AudioSystem.getClip();
-        clip.open(sound);
-        clip.start();
-        */
     }
-
 
 	public GameManagment() {
 
