@@ -53,11 +53,11 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		g2.drawImage(backImg.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
 
 		before=open.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		after=before.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
 		openImg=new ImageIcon(after);
 
 		before=open2.getImage();
-		after=before.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+		after=before.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
 		open2Img= new ImageIcon(after);
 
 		before=selectedDifficulty.getImage();
@@ -86,7 +86,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean normal=((xx>=row1-70&&xx<=row1+70)&&(yy>=col2-56&&yy<=col2+56));
 		boolean hard=((xx>=row1-70&&xx<=row1+70)&&(yy>=col3-56&&yy<=col3+56));
 
-		boolean isOpen=((xx>=800+6&&xx<=800+198)&&(yy>=400+100&&yy<=400+169)); //270
+		boolean isOpen=((xx>=800+6&&xx<=800+156)&&(yy>=400+100&&yy<=400+169)); //270
 
 		if(easy){
 			orders=3;
@@ -123,7 +123,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean normal=((xx>=row1-70&&xx<=row1+70)&&(yy>=col2-56&&yy<=col2+56));
 		boolean hard=((xx>=row1-70&&xx<=row1+70)&&(yy>=col3-56&&yy<=col3+56));
 
-		boolean isOpen=((xx>=800+6&&xx<=800+198)&&(yy>=400+100&&yy<=400+169));
+		boolean isOpen=((xx>=800+6&&xx<=800+156)&&(yy>=400+100&&yy<=400+169));
 
 		if(easy){
 			price=3;
@@ -164,11 +164,11 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 				mouseClickEvent();
 				mouseMoveEvent();
 
-				mouseEventT.sleep(2);
+				mouseEventT.sleep(1);
 			}
 		}catch(InterruptedException ex){	
 		} finally {
-			System.out.println("mouseEvent Thread dead");
+			System.out.println(" mouseEventThread dead");
 		}
 	}
 }
