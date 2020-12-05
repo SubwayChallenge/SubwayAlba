@@ -66,6 +66,9 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		after=before.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH);
 		open2Img= new ImageIcon(after);
 
+		before=selectedDifficulty.getImage();
+		after=before.getScaledInstance(80,80, Image.SCALE_SMOOTH);
+		check = new ImageIcon(after);
 
 		//error message
 		before=chooseErrorMessage.getImage();
@@ -86,12 +89,11 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 
 		g2.setFont(font2);
 
-		g2.drawString("total: "+orders,800,560);//string for total hamburgers
+		g2.drawString("total: "+orders,830,580);//string for total hamburgers
 
 	}
 
 	public void mouseClickEvent() {
-		System.out.println(mouse.getMouseXPos());
 		int xx = mouse.getMouseClickXPos();
 		int yy = mouse.getMouseClickYPos();
 
