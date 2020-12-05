@@ -38,7 +38,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	
 	//로직 변수
 	private int selectedSandwichMenuNumber; //97,164,165,167,171,172,174,178,210,219,221,259,375,379, 선택한 샌드위치 메뉴
-	private int maxSancwichMenuNumber; //98,165,171,178,204,221,247,370,376, 현재 샌드위치 재료 종류(최소 2)
+	private int maxSandwichMenuNumber; //98,165,171,178,204,221,247,370,376, 현재 샌드위치 재료 종류(최소 2)
 	
 	private int madeCount; //103, 140, 287, 296, 298, 401, 현재까지 만든 개수
 	private int orderCount; //107, 296, 399, 목표 샌드위치 개수
@@ -95,7 +95,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		//다른 스레드간 접근과 애매모호해지는걸 방지해 클래스내에서 스레드를 관리하는것이 좋음
 
 		selectedSandwichMenuNumber = 1;
-		maxSancwichMenuNumber = 7;
+		maxSandwichMenuNumber = 7;
 
 		userSandwich = new SandwichIngredient[maxSandwichIngredientCount];
 		userSandwichCount = 0;
@@ -162,20 +162,20 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_LEFT : {
 				if(selectedSandwichMenuNumber <= 1)
-					selectedSandwichMenuNumber = maxSancwichMenuNumber;
+					selectedSandwichMenuNumber = maxSandwichMenuNumber;
 				else
 					selectedSandwichMenuNumber--;
 				break;
 			}
 			case KeyEvent.VK_RIGHT : {
-				if(selectedSandwichMenuNumber >= maxSancwichMenuNumber)
+				if(selectedSandwichMenuNumber >= maxSandwichMenuNumber)
 					selectedSandwichMenuNumber = 1;
 				else
 					selectedSandwichMenuNumber++;
 				break;
 			}
 			case KeyEvent.VK_SPACE :{
-				if(selectedSandwichMenuNumber == maxSancwichMenuNumber)
+				if(selectedSandwichMenuNumber == maxSandwichMenuNumber)
 					sendSandwich();
 				else
 					makeSandwich();
@@ -201,7 +201,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		int positionX = mouse.getMouseXPos();
 		int positionY = mouse.getMouseYPos();
 		
-		for(int i=1; i<=maxSancwichMenuNumber; i++){
+		for(int i=1; i<=maxSandwichMenuNumber; i++){
 			// && positionY
 			if(positionX > SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace) &&
 			   positionX < SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace)+SandwichIngredientItemWidth &&
@@ -218,7 +218,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 				System.out.println("click: " + selectedSandwichMenuNumber);
 
-				if(selectedSandwichMenuNumber == maxSancwichMenuNumber)
+				if(selectedSandwichMenuNumber == maxSandwichMenuNumber)
 					sendSandwich();
 				else
 					makeSandwich();
@@ -244,7 +244,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		exSandwich[0] = 2;
 		exSandwich[maxExSandwichNumber-1] = 1;
 		for(int i=1; i<=maxExSandwichNumber-2; i++){
-			exSandwich[i] = 2 + random.nextInt(maxSancwichMenuNumber-2);
+			exSandwich[i] = 2 + random.nextInt(maxSandwichMenuNumber-2);
 			//메뉴의 마지막은 제출메뉴가 되기때문에 -1을 해줌
 		}
 	}//method createExampleBurger - 예시 샌드위치를 만든다.
@@ -365,15 +365,16 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			}
 		}
 	}//method displayUserBurger - 사용자가 만든 샌드위치를 화면에 그리기
-	
+
+
 	private void displayMenu(Graphics g) {
-		for(int i=1; i<=maxSancwichMenuNumber; i++) {
+		for(int i=1; i<=maxSandwichMenuNumber; i++) {
 			g.setColor(Color.BLACK);
 			g.drawRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
 			//drawRect(사각형선만 그림) - 시작x, 시작y, width, height
 			
 			if(i==selectedSandwichMenuNumber) {
-				if(i==maxSancwichMenuNumber)
+				if(i==maxSandwichMenuNumber)
 					g.setColor(Color.WHITE); //제출메뉴
 				else
 					g.setColor(sandwichColor[selectedSandwichMenuNumber]);
@@ -389,7 +390,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			
 		}
 	}//method displayMenu - 아래의 샌드위치 메뉴를 출력해준다
-	
+
 	private void displayUI(Graphics g) {
 		Font font1 = new Font("Verdana", Font.PLAIN, 30);
 		
