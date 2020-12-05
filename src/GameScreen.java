@@ -39,8 +39,9 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	private ImageIcon background;
 
 	//로직 변수
+
 	private int selectedSandwichMenuNumber; //선택한 샌드위치 메뉴
-	private int maxSancwichMenuNumber;      //현재 샌드위치 재료 종류(최소 2)
+	private int maxSandwichMenuNumber;      //현재 샌드위치 재료 종류(최소 2)
 	
 	private int madeCount;  //현재까지 만든 개수
 	private int orderCount; //목표 샌드위치 개수
@@ -93,7 +94,8 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		//다른 스레드간 접근과 애매모호해지는걸 방지해 클래스내에서 스레드를 관리하는것이 좋음
 
 		selectedSandwichMenuNumber = 1;
-		maxSancwichMenuNumber = 7; //빵1(b1~b5), 치즈1(c1~c3), 채소1(v1~v3), 채소2(s1~s5), 고기1(m1~m4), 소스1(d1~d3)->총 7개
+		maxSandwichMenuNumber = 7; //빵1(b1~b5), 치즈1(c1~c3), 채소1(v1~v3), 채소2(s1~s5), 고기1(m1~m4), 소스1(d1~d3)->총 7개
+
 
 		userSandwich = new SandwichIngredient[maxSandwichIngredientCount];
 		userSandwichCount = 0;
@@ -157,20 +159,20 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_LEFT : {
 				if(selectedSandwichMenuNumber <= 1)
-					selectedSandwichMenuNumber = maxSancwichMenuNumber;
+					selectedSandwichMenuNumber = maxSandwichMenuNumber;
 				else
 					selectedSandwichMenuNumber--;
 				break;
 			}
 			case KeyEvent.VK_RIGHT : {
-				if(selectedSandwichMenuNumber >= maxSancwichMenuNumber)
+				if(selectedSandwichMenuNumber >= maxSandwichMenuNumber)
 					selectedSandwichMenuNumber = 1;
 				else
 					selectedSandwichMenuNumber++;
 				break;
 			}
 			case KeyEvent.VK_SPACE :{
-				if(selectedSandwichMenuNumber == maxSancwichMenuNumber)
+				if(selectedSandwichMenuNumber == maxSandwichMenuNumber)
 					sendSandwich();
 				else {
 					makeSandwich();
@@ -198,7 +200,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		int positionX = mouse.getMouseXPos();
 		int positionY = mouse.getMouseYPos();
 		
-		for(int i=1; i<=maxSancwichMenuNumber; i++){
+		for(int i=1; i<=maxSandwichMenuNumber; i++){
 			// && positionY
 			if(positionX > SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace) &&
 			   positionX < SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace)+SandwichIngredientItemWidth &&
@@ -384,7 +386,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		for(int i=startNum; i<=endNum; i++) {
 
 			if(i==selectedSandwichMenuNumber) {
-				if(i==maxSancwichMenuNumber)
+				if(i==maxSandwichMenuNumber)
 					g.setColor(Color.WHITE);
 				else
 					g.setColor(sandwichColor[selectedSandwichMenuNumber]);

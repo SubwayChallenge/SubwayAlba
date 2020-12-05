@@ -17,4 +17,7 @@ ingredient는 재료 보드에서 선택할 재료 \
 * 각 단계의 인덱싱이 지켜져야함(파일 이름 순서)
 * 단계의 순서가 바뀌어서는 안됨
 
-
+----지연-----
+* ChooseDifficulty 완료, 글씨체 알아보고 바꿀것임 너무 구려 
+* GameManagement부터 하면 되는데, (displayMenu-사진 바꾸고 사각형 추가하고 상황에 따라 수정 등등), 지연이가 마저 displayMenu와 좌표 구할 것
+* exit아직 수정 못함
