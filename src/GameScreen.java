@@ -2,16 +2,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Arrays;
-import java.util.Random;
+
+import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
-public class GameScreen extends JPanel implements KeyListener,Runnable {
+public class GameScreen extends JPanel implements Runnable {
 
 	//UI관련 상수
 	private static final int maxSandwichIngredientCount = 7; //사용자가 만들 수 있는 샌드위치의 최대 층 수 = 7(빵1(b1~b5), 치즈1(c1~c3), 채소1(v1~v3), 채소2(s1~s5), 고기1(m1~m4), 소스1(d1~d3))
@@ -24,7 +22,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	private static final int exSandwichWidth = 200; 	 //예시 샌드위치의 재료 넓이
 	private static final int exSandwichHeight = 10; 	 //예시 샌드위치의 재료 높이
 	
-	private static final int SandwichIngredientLeftSpace = 150; //샌드위치 메뉴 왼쪽 여백
+	private static final int SandwichIngredientLeftSpace = 225; //샌드위치 메뉴 왼쪽 여백
 	private static final int SandwichIngredientTopSpace = 500;  //샌드위치 메뉴 위쪽 여백
 	private static final int SandwichIngredientItemSpace = 150; //샌드위치 메뉴 아이템 여백
 
@@ -49,7 +47,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	private int gameTimer; //타이머, 시간 줄어드는게 1초 단위가 아닌거같아..ㅎㅎ너무 빨리 줄어든다
 	private int timeLimit; //제한시간
 
-	private int phase = 1;
+	private int phase = 0;
 
 	private Color sandwichColor[] = {Color.WHITE, Color.pink, Color.orange, Color.DARK_GRAY, Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, Color.CYAN};
 	//아래 재료 보여줄 때 사용됨
@@ -60,7 +58,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			"resource/ingredient/st1.png", "resource/ingredient/st2.png", "resource/ingredient/st3.png", "resource/ingredient/st4.png", "resource/ingredient/st5.png",
 			"resource/ingredient/mt1.png", "resource/ingredient/mt2.png", "resource/ingredient/mt3.png", "resource/ingredient/mt4.png",
 			"resource/ingredient/chili-sauce.png", "resource/ingredient/mayonaisse.png", "resource/ingredient/mustard.png",
-			"resource/ingredient/finish.png"};
+			"resource/ingredient/wrap.png"};
 	//예시 샌드위치 만들 때 사용됨                                  1~5          6~8         9~11         12~16       17~20        21~24
 	private String sandwichIngredientName[] = {//빵1(b1~b5), 치즈1(c1~c3), 채소1(v1~v3), 채소2(s1~s5), 고기1(m1~m4), 소스1(d1~d3) 순서!
 			"", "b1", "b2", "b3", "b4", "b5", "c1", "c2", "c3", "v1", "v2", "v3", "s1", "s2", "s3", "s4", "s5", "m1", "m2", "m3", "m4", "d2", "d3", "d1", "finish"};
@@ -72,14 +70,14 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	private int maxExSandwichNumber;
 	
 	private CustomMouse mouse;
-	private GameManagment rootScreen;
+	private GameManagement rootScreen;
 	
 	private Thread gameT;
 	
 	private boolean flag;
 
 	/*method*/
-	public GameScreen(CustomMouse inputMouseListener, GameManagment inputRootFrame, int inputTargetScore, int inputTimer) {
+	public GameScreen(CustomMouse inputMouseListener, GameManagement inputRootFrame, int inputTargetScore, int inputTimer) {
 		
 		background = new ImageIcon("resource/background3.png");
 		
@@ -128,7 +126,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			while(!flag){
 				gameTimer--;
 				
-				mouseBurgerMenuEvent();
+				mousesandwichMenuEvent();
 				
 				repaint();
 				revalidate();
@@ -137,7 +135,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 					clearExitScene();
 					rootScreen.moveToResultScreen(false, madeCount, gameTimer);
 				}
-				gameT.sleep(2);
+				gameT.sleep(1);
 			}
 		}catch(InterruptedException ex){
 			
@@ -147,54 +145,8 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		
 	}//thread
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {
-			case KeyEvent.VK_LEFT : {
-				if(selectedSandwichMenuNumber <= 1)
-					selectedSandwichMenuNumber = maxSandwichMenuNumber;
-				else
-					selectedSandwichMenuNumber--;
-				break;
-			}
-			case KeyEvent.VK_RIGHT : {
-				if(selectedSandwichMenuNumber >= maxSandwichMenuNumber)
-					selectedSandwichMenuNumber = 1;
-				else
-					selectedSandwichMenuNumber++;
-				break;
-			}
-			case KeyEvent.VK_SPACE :{
-				if(selectedSandwichMenuNumber == maxSandwichMenuNumber)
-					sendSandwich();
-				else {
-					makeSandwich();
-					phase++;
-				}
-				break;
-			}
-			case KeyEvent.VK_UP : {
-				break;
-			}
-			case KeyEvent.VK_DOWN : {
-				break;
-			}
-			case KeyEvent.VK_ENTER : {
-				clearExitScene();
-			}
-		}
-		//revalidate();
-		//repaint();
-	}//method keyPressed - 버거메뉴에 대한 키이벤트 처리
 	
-	private void mouseBurgerMenuEvent() {
+	private void mousesandwichMenuEvent() {
 		int clickPositionX = mouse.getMouseClickXPos();
 		int clickPositionY = mouse.getMouseClickYPos();
 		int positionX = mouse.getMouseXPos();
@@ -217,9 +169,12 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 				System.out.println("click: " + selectedSandwichMenuNumber);
 
-				if(selectedSandwichMenuNumber == 4 && phase == 8) {
+				if(selectedSandwichMenuNumber == 4 && phase == 7) {
 					sendSandwich();
-					phase=1;
+					phase=0;
+				}
+				else if(phase == 8){
+
 				}
 				else {
 					makeSandwich();
@@ -229,12 +184,8 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		}
 		clickPositionX = -1;
 		clickPositionY = -1;
-	}//method mouseBurgerMenuEvent - 버거 메뉴의 마우스이벤트 처리
+	}//method mousesandwichMenuEvent - 버거 메뉴의 마우스이벤트 처리
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
 	
 	private void createExampleSandwich() {
 		Random random = new Random();
@@ -245,53 +196,51 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 		exSandwich[0] = 1 + random.nextInt(5); //빵, 1~5 중 1개
 		exSandwich[1] = 6 + random.nextInt(3); //치즈, 6~8 중 1개
-		exSandwich[2] = 9 + random.nextInt(3);//채소, 9~11 중 1개
+		exSandwich[2] = 9 + random.nextInt(3); //채소, 9~11 중 1개
 		exSandwich[3] = 12 + random.nextInt(5);//채소, 12~16 중 1개
 		exSandwich[4] = 12 + random.nextInt(5);//채소, 12~16 중 1개
+		if(exSandwich[4]==exSandwich[3] && exSandwich[3] != 16){
+			exSandwich[4]++;
+		}
+		else if(exSandwich[4]==exSandwich[3])
+			exSandwich[4]--;
 		exSandwich[5] = 17 + random.nextInt(4);//고기, 17~20 중 1개
 		exSandwich[6] = 21 + random.nextInt(3);//소스, 21~23 중 1개
 
-	}//method createExampleBurger - 예시 샌드위치를 만든다, 그리는 부분(displayExSandwich)은 아래에 있음
+	}//method createExamplesandwich - 예시 샌드위치를 만든다, 그리는 부분(displayExSandwich)은 아래에 있음
 	
 	private void makeSandwich() {
 		if(userSandwichCount < maxSandwichIngredientCount){
-			//System.out.println("makeSandwich check");
 
 			if(userSandwich[userSandwichCount]==null)
 				userSandwich[userSandwichCount] = new SandwichIngredient();
 
-			if(phase==1){
+			if(phase==0){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber;
+				userSandwichCount++;
+			}
+			else if(phase==1){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+5);
 				userSandwichCount++;
 			}
 			else if(phase==2){
-				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+5);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+5;
-				userSandwichCount++;
-			}
-			else if(phase==3){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+8);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+8;
 				userSandwichCount++;
 			}
-			else if(phase==4 || phase==5){
+			else if(phase==3 || phase==4){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+11);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+11;
+				userSandwichCount++;
+			}
+			else if(phase==5){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+16);
 				userSandwichCount++;
 			}
 			else if(phase==6){
-				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+16);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+16;
-				userSandwichCount++;
-			}
-			else if(phase==7){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+20);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+20;
 				userSandwichCount++;
 			}
 
-			rootScreen.playEffectSound("resource/sound/burger_stack.mp3");
+			rootScreen.playEffectSound("resource/sound/sandwich_stack.mp3");
 		}
 		else{
 			System.out.println("You cannot stack any more");
@@ -299,28 +248,36 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	}//method makeSandwich - 샌드위치 쌓기
 	
 	private void sendSandwich() {
-		boolean solutionCheck = true;
 		int temp=0;
+		boolean solutionCheck=true;
+
 		if(userSandwichCount != maxExSandwichNumber){
 			System.out.println("fail");
 
 			rootScreen.playEffectSound("resource/sound/not_correct.mp3");
 		}
 		else{
-			for(int i=0; i<userSandwichCount; i++) {
-				System.out.println(userSandwich[i].ingredientOrder);
-				System.out.println(exSandwich[i]);
-				if(userSandwich[i].ingredientOrder != exSandwich[i]){
-					if(i == 4 && userSandwich[i].ingredientOrder == exSandwich[5]){
-						continue;
-					}
-					else if(i == 5 && userSandwich[i].ingredientOrder == exSandwich[4]){
-						continue;
-					}
-					else {
-						solutionCheck = false;
+			for(int i=0; i<userSandwichCount;i++){
+
+				if(phase==3 && userSandwich[i].ingredientOrder!=exSandwich[i]){
+					if(userSandwich[i].ingredientOrder!=exSandwich[i+1]){
+						solutionCheck=false;
 						break;
 					}
+					else
+						continue;
+				}
+				else if(phase==4 && userSandwich[i].ingredientOrder!=exSandwich[i]){
+					if(userSandwich[i].ingredientOrder!=exSandwich[i-1]){
+						solutionCheck=false;
+						break;
+					}
+					else
+						continue;
+				}
+				else if(userSandwich[i].ingredientOrder!=exSandwich[i]){
+					solutionCheck=false;
+					break;
 				}
 			}
 			if(solutionCheck) {
@@ -329,8 +286,6 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 				rootScreen.playEffectSound("resource/sound/correct.mp3");
 			}else{
 				System.out.println("fail");
-				//System.out.printf(Arrays.toString(userSandwich));
-				//System.out.printf(Arrays.toString(exSandwich));
 				rootScreen.playEffectSound("resource/sound/not_correct.mp3");
 			}
 			//검사
@@ -344,32 +299,25 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 		createExampleSandwich();
 		
-	}//method sendBurger - 현재 만든 샌드위치를 제출하고 정답 확인
+	}//method sendsandwich - 현재 만든 샌드위치를 제출하고 정답 확인
 	
 	private void displayExSandwich(Graphics g) {
-		int exampleBurgerPositionX;
-		
-		exampleBurgerPositionX = (this.getWidth()/10) - (exSandwichWidth/2);
 		
 		if(maxExSandwichNumber > 0) {
 			for(int i=0; i<maxExSandwichNumber; i++){
 
-				ImageIcon burgerIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[exSandwich[i]] + ".png");
-				g.drawImage(burgerIngredientImage.getImage(), 50, 90,this);
+				ImageIcon sandwichIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[exSandwich[i]] + ".png");
+				g.drawImage(sandwichIngredientImage.getImage(), 50, 100,250,250,this);
 			}
 		}
-	}//method displayExampleBurger - 만들어야 할 샌드위치 그리기
+	}//method displayExamplesandwich - 만들어야 할 샌드위치 그리기
 	
 	private void displayUserSandwich(Graphics g) {
-		int userSandwichPositionX;
-
-		userSandwichPositionX = (this.getWidth()/2) - (userSandwichWidth/2);
 
 		if(userSandwichCount > 0) {
 			for(int i=0; i<userSandwichCount; i++){
-				//System.out.println("i층 샌드위치 내용물 : " + exampleBurger[i]);
+				//System.out.println("i층 샌드위치 내용물 : " + examplesandwich[i]);
 				int ingredientNumber = userSandwich[i].ingredientOrder;			//재료 순서
-				int ingredientPositionX = userSandwich[i].ingredientXPos;
 				int ingredientPositionY = userSandwich[i].ingredientYPos;
 				int targetPositionY = userSandwichBottomSpace - (i*userSandwichHeight); //최종 위치
 
@@ -378,17 +326,14 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 				if(ingredientPositionY + 10 > targetPositionY){
 					ingredientPositionY = targetPositionY;
 				}else{
-//					repaint();
-//					revalidate();
 				}//샌드위치 애니메이션
 
 				userSandwich[i].ingredientYPos = ingredientPositionY;
-
-				ImageIcon burgerIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[ingredientNumber] + ".png");
-				g.drawImage(burgerIngredientImage.getImage(), 520, 120, this);
+				ImageIcon sandwichIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[ingredientNumber] + ".png");
+				g.drawImage(sandwichIngredientImage.getImage(), 520, 90, this);
 			}
 		}
-	}//method displayUserBurger - 사용자가 만든 샌드위치를 화면에 그리기
+	}//method displayUsersandwich - 사용자가 만든 샌드위치를 화면에 그리기
 
 	private void drawSandwich(Graphics g, int startNum, int endNum){//사용자가 만든 샌드위치 그려주는 부분
 		for(int i=startNum; i<=endNum; i++) {
@@ -408,26 +353,28 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 	private void displayMenu(Graphics g) {
 
-		if(phase==1){//빵 고르기
+		if(phase==0){//빵 고르기
 			drawSandwich(g, 1, 5);
 		}
-		else if(phase==2){//치즈 고르기
+		else if(phase==1){//치즈 고르기
 			drawSandwich(g, 6, 8);
 		}
-		else if(phase==3){//채소 고르기 (v1~v3)
+		else if(phase==2){//채소 고르기 (v1~v3)
 			drawSandwich(g, 9, 11);
 		}
-		else if(phase==4 || phase==5){//채소 고르기 (s1~s5)
+		else if(phase==3 || phase==4){//채소 고르기 (s1~s5)
 			drawSandwich(g, 12, 16);
 		}
-		else if(phase==6){//고기 고르기
+		else if(phase==5){//고기 고르기
 			drawSandwich(g, 17, 20);
 		}
-		else if(phase==7){ //소스고르기
+		else if(phase==6){ //소스고르기
 			drawSandwich(g, 21, 24);
 		}
-		else if(phase==8){ //phase=8인 경우, finish 누르는 거를 위해서ㅎㅎ
-			drawSandwich(g, 21, 24);
+		else if(phase==7){ //phase=8인 경우, finish 누르는 거를 위해서ㅎㅎ
+			//drawSandwich(g, 21, 24);
+			ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[24]);
+			g.drawImage(menuItemImage.getImage(), (SandwichIngredientLeftSpace+20) + ((2)*SandwichIngredientItemSpace), (SandwichIngredientTopSpace-30), 200, 200,this);
 		}
 
 	}//method displayMenu - 화면 아래 샌드위치 재료들을 출력해준다
@@ -471,6 +418,5 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		super.paintComponent(g); 
 		update(g);
 	}//paint component
-
 }
 

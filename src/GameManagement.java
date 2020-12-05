@@ -1,8 +1,8 @@
 import javax.swing.*;
 
-public class GameManagment extends JFrame {
+public class GameManagement extends JFrame {
 	
-	private GameManagment rootScreen;
+	private GameManagement rootScreen;
 	private MainScreen mainScreen;
 	private GameScreen gameScreen;
 	private ChooseDifficulty chooseDifficulty;
@@ -17,12 +17,7 @@ public class GameManagment extends JFrame {
 		if(mainScreen != null) {
 			remove(mainScreen);
 		}
-		
-		if(gameScreen != null) {
-			removeKeyListener(gameScreen);
-			remove(gameScreen);
-		}
-		
+
 		if(chooseDifficulty != null) {
 			remove(chooseDifficulty);
 		}
@@ -39,7 +34,6 @@ public class GameManagment extends JFrame {
 
 		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60);
 		setSize(1280, 720);
-		addKeyListener(gameScreen);
 		add(gameScreen);
 
 		playBackgroundMusic("resource/sound/main_back.mp3");
@@ -77,12 +71,11 @@ public class GameManagment extends JFrame {
 		revalidate();
 	}
 	
-	public void moveToResultScreen(boolean inputResult, int inputBurgerCount, int inputTimer) {
+	public void moveToResultScreen(boolean inputResult, int inputsandwichCount, int inputTimer) {
 		clearFrame();
 
-		resultScreen = new ResultScreen(inputResult, inputBurgerCount, inputTimer);
+		resultScreen = new ResultScreen(inputResult, inputsandwichCount, inputTimer);
 		setSize(1280, 720);
-		//addKeyListener(gameScene);
 		add(resultScreen);
 		
 		if(inputResult)
@@ -109,7 +102,7 @@ public class GameManagment extends JFrame {
 		backgroundMusic = new BgmPlayer(fileName);
     }
 
-	public GameManagment() {
+	public GameManagement() {
 
 		rootScreen = this;
 		backgroundMusic = null;
@@ -128,6 +121,6 @@ public class GameManagment extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new GameManagment();
+		new GameManagement();
 	}
 }
