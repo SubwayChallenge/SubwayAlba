@@ -161,7 +161,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 	public void mouseClickEvent() {
 		int xx = mouse.getMouseClickXPos();
 		int yy = mouse.getMouseClickYPos();
-				
+
 		//boolean easyFlag=false;//165
 		//boolean normalFlag=false;//198, 218
 		//boolean hardFlag=false;//235, 253
@@ -224,11 +224,11 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		//boolean easy1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col1-100&&yy<=col1+100)); //298
 		//boolean easy2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col1-100&&yy<=col1+100)); //300
 		//boolean easy3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col1-100&&yy<=col1+100)); //302
-		
+
 		//boolean normal1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col2-100&&yy<=col2+100)); //305
 		//boolean normal2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col2-100&&yy<=col2+100)); //307
 		//boolean normal3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col2-100&&yy<=col2+100)); //309
-		
+
 		//boolean hard1=((xx>=row1-100&&xx<=row1+100)&&(yy>=col3-100&&yy<=col3+100)); //312
 		//boolean hard2=((xx>=row2-100&&xx<=row2+100)&&(yy>=col3-100&&yy<=col3+100)); //314
 		//boolean hard3=((xx>=row3-100&&xx<=row3+100)&&(yy>=col3-100&&yy<=col3+100)); //316

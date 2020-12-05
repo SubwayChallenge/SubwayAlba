@@ -6,17 +6,17 @@ import javax.swing.JPanel;
 
 
 public class MainScreen extends JPanel implements Runnable{
-	private int planeWidth, planeHeight; //각각 39,40 줄(다른 파일에는 없음)
-	private CustomMouse mouse; //41, 74, 81, 88, 93 줄
-	private GameManagment mainScreen; //42, 91
+	private int planeWidth, planeHeight;
+	private CustomMouse mouse;
+	private GameManagment mainScreen;
 
-	private Image startBtnImg; //75, 78, 102
-	private Image endImg; //82, 85,103
+	private Image startBtnImg;
+	private Image endImg;
 
-	private Thread mainSceneT;//45, 46, 50, 52, 65
-	private boolean flag; //43, 51, 59
+	private Thread mainSceneT;
+	private boolean flag;
 
-	Image backgroundImg; //34, 98
+	Image backgroundImg;
 	
 	public MainScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagment inputMainScreen) {
 		//super(); 안해준 이유?
@@ -24,10 +24,10 @@ public class MainScreen extends JPanel implements Runnable{
 
 		backgroundImg = new ImageIcon("resource/background.png").getImage();
 
-		planeWidth  = screenWidth; //여기에만 쓰임
-		planeHeight = screenHeight; //여기에만 쓰임
-		mouse 	  = inputMouseListener; //여기에만 쓰임
-		mainScreen = inputMainScreen; //여기에만 쓰임
+		planeWidth  = screenWidth;
+		planeHeight = screenHeight;
+		mouse 	  = inputMouseListener;
+		mainScreen = inputMainScreen;
 		flag = false;
 
 		mainSceneT = new Thread(this);
@@ -81,11 +81,12 @@ public class MainScreen extends JPanel implements Runnable{
 			mainScreen.moveToChooseDiffScreen();
 		}
 		if(mouse.getMouseClickXPos()>1060 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>40 && mouse.getMouseClickYPos()<160) {
+			System.exit(0);
 			try {
-				mainSceneT.sleep(2000);     //2초동안 잠시 정지시킨다
+				mainSceneT.sleep(2000); //2초동안 잠시 정지시킨다
 			} catch (Exception e) {
 			}
-			System.exit(0); //종료 안됨
+			//System.exit(0); //종료 안됨
 		}
 	}
 
