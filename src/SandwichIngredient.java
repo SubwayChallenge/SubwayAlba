@@ -5,7 +5,7 @@ public class SandwichIngredient {
 	public int ingredientXPos, ingredientYPos;
 	
 	public void createSandwichIngredient(int inputIngredientNumber) {
-		ingredientOrder 	= inputIngredientNumber;
+		ingredientOrder = inputIngredientNumber;
 		ingredientXPos = 0;
 		ingredientYPos = 0;
 	}

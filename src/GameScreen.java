@@ -22,7 +22,7 @@ public class GameScreen extends JPanel implements Runnable {
 	private static final int exSandwichWidth = 200; 	 //예시 샌드위치의 재료 넓이
 	private static final int exSandwichHeight = 10; 	 //예시 샌드위치의 재료 높이
 	
-	private static final int SandwichIngredientLeftSpace = 150; //샌드위치 메뉴 왼쪽 여백
+	private static final int SandwichIngredientLeftSpace = 225; //샌드위치 메뉴 왼쪽 여백
 	private static final int SandwichIngredientTopSpace = 500;  //샌드위치 메뉴 위쪽 여백
 	private static final int SandwichIngredientItemSpace = 150; //샌드위치 메뉴 아이템 여백
 
@@ -47,7 +47,7 @@ public class GameScreen extends JPanel implements Runnable {
 	private int gameTimer; //타이머, 시간 줄어드는게 1초 단위가 아닌거같아..ㅎㅎ너무 빨리 줄어든다
 	private int timeLimit; //제한시간
 
-	private int phase = 1;
+	private int phase = 0;
 
 	private Color sandwichColor[] = {Color.WHITE, Color.pink, Color.orange, Color.DARK_GRAY, Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, Color.CYAN};
 	//아래 재료 보여줄 때 사용됨
@@ -169,9 +169,9 @@ public class GameScreen extends JPanel implements Runnable {
 
 				System.out.println("click: " + selectedSandwichMenuNumber);
 
-				if(selectedSandwichMenuNumber == 4 && phase == 8) {
+				if(selectedSandwichMenuNumber == 4 && phase == 7) {
 					sendSandwich();
-					phase=1;
+					phase=0;
 				}
 				else if(phase == 8){
 
@@ -196,7 +196,7 @@ public class GameScreen extends JPanel implements Runnable {
 
 		exSandwich[0] = 1 + random.nextInt(5); //빵, 1~5 중 1개
 		exSandwich[1] = 6 + random.nextInt(3); //치즈, 6~8 중 1개
-		exSandwich[2] = 9 + random.nextInt(3);//채소, 9~11 중 1개
+		exSandwich[2] = 9 + random.nextInt(3); //채소, 9~11 중 1개
 		exSandwich[3] = 12 + random.nextInt(5);//채소, 12~16 중 1개
 		exSandwich[4] = 12 + random.nextInt(5);//채소, 12~16 중 1개
 		if(exSandwich[4]==exSandwich[3] && exSandwich[3] != 16){
@@ -211,39 +211,32 @@ public class GameScreen extends JPanel implements Runnable {
 	
 	private void makeSandwich() {
 		if(userSandwichCount < maxSandwichIngredientCount){
-			//System.out.println("makeSandwich check");
 
 			if(userSandwich[userSandwichCount]==null)
 				userSandwich[userSandwichCount] = new SandwichIngredient();
 
-			if(phase==1){
+			if(phase==0){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber;
+				userSandwichCount++;
+			}
+			else if(phase==1){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+5);
 				userSandwichCount++;
 			}
 			else if(phase==2){
-				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+5);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+5;
-				userSandwichCount++;
-			}
-			else if(phase==3){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+8);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+8;
 				userSandwichCount++;
 			}
-			else if(phase==4 || phase==5){
+			else if(phase==3 || phase==4){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+11);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+11;
+				userSandwichCount++;
+			}
+			else if(phase==5){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+16);
 				userSandwichCount++;
 			}
 			else if(phase==6){
-				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+16);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+16;
-				userSandwichCount++;
-			}
-			else if(phase==7){
 				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+20);
-				//userSandwichNum[userSandwichCount] = selectedSandwichMenuNumber+20;
 				userSandwichCount++;
 			}
 
@@ -256,19 +249,37 @@ public class GameScreen extends JPanel implements Runnable {
 	
 	private void sendSandwich() {
 		int temp=0;
+		boolean solutionCheck=true;
+
 		if(userSandwichCount != maxExSandwichNumber){
 			System.out.println("fail");
 
 			rootScreen.playEffectSound("resource/sound/not_correct.mp3");
 		}
 		else{
-			ArrayList<String> listUserSandwich = new ArrayList<String>();
-			ArrayList<String> listExSandwich = new ArrayList<String>();
-			Collections.sort(listUserSandwich);
-			Collections.sort(listExSandwich);
+			for(int i=0; i<userSandwichCount;i++){
 
-			boolean solutionCheck=Arrays.equals(listUserSandwich.toArray(),listExSandwich.toArray());
-
+				if(phase==3 && userSandwich[i].ingredientOrder!=exSandwich[i]){
+					if(userSandwich[i].ingredientOrder!=exSandwich[i+1]){
+						solutionCheck=false;
+						break;
+					}
+					else
+						continue;
+				}
+				else if(phase==4 && userSandwich[i].ingredientOrder!=exSandwich[i]){
+					if(userSandwich[i].ingredientOrder!=exSandwich[i-1]){
+						solutionCheck=false;
+						break;
+					}
+					else
+						continue;
+				}
+				else if(userSandwich[i].ingredientOrder!=exSandwich[i]){
+					solutionCheck=false;
+					break;
+				}
+			}
 			if(solutionCheck) {
 				System.out.println("correct");
 				madeCount += 1;
@@ -291,29 +302,22 @@ public class GameScreen extends JPanel implements Runnable {
 	}//method sendsandwich - 현재 만든 샌드위치를 제출하고 정답 확인
 	
 	private void displayExSandwich(Graphics g) {
-		int examplesandwichPositionX;
-		
-		examplesandwichPositionX = (this.getWidth()/10) - (exSandwichWidth/2);
 		
 		if(maxExSandwichNumber > 0) {
 			for(int i=0; i<maxExSandwichNumber; i++){
 
 				ImageIcon sandwichIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[exSandwich[i]] + ".png");
-				g.drawImage(sandwichIngredientImage.getImage(), 50, 90,this);
+				g.drawImage(sandwichIngredientImage.getImage(), 50, 100,250,250,this);
 			}
 		}
 	}//method displayExamplesandwich - 만들어야 할 샌드위치 그리기
 	
 	private void displayUserSandwich(Graphics g) {
-		int userSandwichPositionX;
-
-		userSandwichPositionX = (this.getWidth()/2) - (userSandwichWidth/2);
 
 		if(userSandwichCount > 0) {
 			for(int i=0; i<userSandwichCount; i++){
 				//System.out.println("i층 샌드위치 내용물 : " + examplesandwich[i]);
 				int ingredientNumber = userSandwich[i].ingredientOrder;			//재료 순서
-				int ingredientPositionX = userSandwich[i].ingredientXPos;
 				int ingredientPositionY = userSandwich[i].ingredientYPos;
 				int targetPositionY = userSandwichBottomSpace - (i*userSandwichHeight); //최종 위치
 
@@ -322,14 +326,11 @@ public class GameScreen extends JPanel implements Runnable {
 				if(ingredientPositionY + 10 > targetPositionY){
 					ingredientPositionY = targetPositionY;
 				}else{
-//					repaint();
-//					revalidate();
 				}//샌드위치 애니메이션
 
 				userSandwich[i].ingredientYPos = ingredientPositionY;
-
 				ImageIcon sandwichIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[ingredientNumber] + ".png");
-				g.drawImage(sandwichIngredientImage.getImage(), 520, 120, this);
+				g.drawImage(sandwichIngredientImage.getImage(), 520, 90, this);
 			}
 		}
 	}//method displayUsersandwich - 사용자가 만든 샌드위치를 화면에 그리기
@@ -352,26 +353,28 @@ public class GameScreen extends JPanel implements Runnable {
 
 	private void displayMenu(Graphics g) {
 
-		if(phase==1){//빵 고르기
+		if(phase==0){//빵 고르기
 			drawSandwich(g, 1, 5);
 		}
-		else if(phase==2){//치즈 고르기
+		else if(phase==1){//치즈 고르기
 			drawSandwich(g, 6, 8);
 		}
-		else if(phase==3){//채소 고르기 (v1~v3)
+		else if(phase==2){//채소 고르기 (v1~v3)
 			drawSandwich(g, 9, 11);
 		}
-		else if(phase==4 || phase==5){//채소 고르기 (s1~s5)
+		else if(phase==3 || phase==4){//채소 고르기 (s1~s5)
 			drawSandwich(g, 12, 16);
 		}
-		else if(phase==6){//고기 고르기
+		else if(phase==5){//고기 고르기
 			drawSandwich(g, 17, 20);
 		}
-		else if(phase==7){ //소스고르기
+		else if(phase==6){ //소스고르기
 			drawSandwich(g, 21, 24);
 		}
-		else if(phase==8){ //phase=8인 경우, finish 누르는 거를 위해서ㅎㅎ
-			drawSandwich(g, 21, 24);
+		else if(phase==7){ //phase=8인 경우, finish 누르는 거를 위해서ㅎㅎ
+			//drawSandwich(g, 21, 24);
+			ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[24]);
+			g.drawImage(menuItemImage.getImage(), (SandwichIngredientLeftSpace+20) + ((2)*SandwichIngredientItemSpace), (SandwichIngredientTopSpace-30), 200, 200,this);
 		}
 
 	}//method displayMenu - 화면 아래 샌드위치 재료들을 출력해준다
@@ -415,6 +418,5 @@ public class GameScreen extends JPanel implements Runnable {
 		super.paintComponent(g); 
 		update(g);
 	}//paint component
-
 }
 
