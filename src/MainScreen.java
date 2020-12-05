@@ -19,8 +19,6 @@ public class MainScreen extends JPanel implements Runnable{
 	Image backgroundImg;
 	
 	public MainScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagement inputMainScreen) {
-		//super(); 안해준 이유?
-
 
 		backgroundImg = new ImageIcon("resource/background.png").getImage();
 
