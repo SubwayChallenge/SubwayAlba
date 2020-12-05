@@ -81,11 +81,12 @@ public class MainScreen extends JPanel implements Runnable{
 			mainScreen.moveToChooseDiffScreen();
 		}
 		if(mouse.getMouseClickXPos()>1060 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>40 && mouse.getMouseClickYPos()<160) {
+			System.exit(0);
 			try {
 				mainSceneT.sleep(2000); //2초동안 잠시 정지시킨다
 			} catch (Exception e) {
 			}
-			System.exit(0); //종료 안됨
+			//System.exit(0); //종료 안됨
 		}
 	}
 
