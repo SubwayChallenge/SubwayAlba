@@ -1,8 +1,8 @@
 import javax.swing.*;
 
-public class GameManagment extends JFrame {
+public class GameManagement extends JFrame {
 	
-	private GameManagment rootScreen;
+	private GameManagement rootScreen;
 	private MainScreen mainScreen;
 	private GameScreen gameScreen;
 	private ChooseDifficulty chooseDifficulty;
@@ -77,10 +77,10 @@ public class GameManagment extends JFrame {
 		revalidate();
 	}
 	
-	public void moveToResultScreen(boolean inputResult, int inputBurgerCount, int inputTimer) {
+	public void moveToResultScreen(boolean inputResult, int inputsandwichCount, int inputTimer) {
 		clearFrame();
 
-		resultScreen = new ResultScreen(inputResult, inputBurgerCount, inputTimer);
+		resultScreen = new ResultScreen(inputResult, inputsandwichCount, inputTimer);
 		setSize(1280, 720);
 		//addKeyListener(gameScene);
 		add(resultScreen);
@@ -109,7 +109,7 @@ public class GameManagment extends JFrame {
 		backgroundMusic = new BgmPlayer(fileName);
     }
 
-	public GameManagment() {
+	public GameManagement() {
 
 		rootScreen = this;
 		backgroundMusic = null;
@@ -128,6 +128,6 @@ public class GameManagment extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new GameManagment();
+		new GameManagement();
 	}
 }

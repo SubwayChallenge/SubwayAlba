@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class MainScreen extends JPanel implements Runnable{
 	private int planeWidth, planeHeight;
 	private CustomMouse mouse;
-	private GameManagment mainScreen;
+	private GameManagement mainScreen;
 
 	private Image startBtnImg;
 	private Image endImg;
@@ -18,7 +18,7 @@ public class MainScreen extends JPanel implements Runnable{
 
 	Image backgroundImg;
 	
-	public MainScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagment inputMainScreen) {
+	public MainScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagement inputMainScreen) {
 		//super(); 안해준 이유?
 
 
