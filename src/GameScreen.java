@@ -169,12 +169,9 @@ public class GameScreen extends JPanel implements Runnable {
 
 				System.out.println("click: " + selectedSandwichMenuNumber);
 
-				if(selectedSandwichMenuNumber == 4 && phase == 7) {
+				if(phase == 7) {
 					sendSandwich();
 					phase=0;
-				}
-				else if(phase == 8){
-
 				}
 				else {
 					makeSandwich();
