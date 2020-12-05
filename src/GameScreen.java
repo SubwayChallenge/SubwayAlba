@@ -4,8 +4,8 @@ import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
-import java.util.Random;
+
+import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -297,7 +297,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 	}//method makeSandwich - 샌드위치 쌓기
 	
 	private void sendSandwich() {
-		boolean solutionCheck = true;
+		//boolean solutionCheck = true;
 		int temp=0;
 		if(userSandwichCount != maxExSandwichNumber){
 			System.out.println("fail");
@@ -305,22 +305,14 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			rootScreen.playEffectSound("resource/sound/not_correct.mp3");
 		}
 		else{
-			for(int i=0; i<userSandwichCount; i++) {
-				System.out.println(userSandwich[i].ingredientOrder);
-				System.out.println(exSandwich[i]);
-				if(userSandwich[i].ingredientOrder != exSandwich[i]){
-					if(i == 4 && userSandwich[i].ingredientOrder == exSandwich[5]){
-						continue;
-					}
-					else if(i == 5 && userSandwich[i].ingredientOrder == exSandwich[4]){
-						continue;
-					}
-					else {
-						solutionCheck = false;
-						break;
-					}
-				}
-			}
+
+			ArrayList<String> listUserSandwich = new ArrayList<String>();
+			ArrayList<String> listExSandwich = new ArrayList<String>();
+			Collections.sort(listUserSandwich);
+			Collections.sort(listExSandwich);
+
+			boolean solutionCheck=Arrays.equals(listUserSandwich.toArray(),listExSandwich.toArray());
+
 			if(solutionCheck) {
 				System.out.println("correct");
 				madeCount += 1;
