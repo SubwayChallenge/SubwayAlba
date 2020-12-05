@@ -231,10 +231,10 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 				if(selectedSandwichMenuNumber == maxSancwichMenuNumber)
 					sendSandwich();
-				else
+				else {
 					makeSandwich();
-
-				phase++;
+					phase++;
+				}
 			}
 		}
 		
@@ -271,8 +271,36 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			if(userSandwich[userSandwichCount]==null)
 				userSandwich[userSandwichCount] = new SandwichIngredient();
 
-			userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber);
-			userSandwichCount++;//
+			if(phase==1){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber);
+				userSandwichCount++;
+			}
+			else if(phase==2){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+5);
+				userSandwichCount++;
+			}
+			else if(phase==3){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+8);
+				userSandwichCount++;
+			}
+			else if(phase==4 || phase==5){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+11);
+				userSandwichCount++;
+			}
+			else if(phase==6){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+16);
+				userSandwichCount++;
+			}
+			else if(phase==7||phase==8){
+				userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber+20);
+				userSandwichCount++;
+
+				if(phase==8){
+					phase=1;
+				}
+			}
+			//userSandwich[userSandwichCount].createSandwichIngredient(selectedSandwichMenuNumber);
+			//userSandwichCount++; //
 
 			rootScreen.playEffectSound("resource/sound/burger_stack.mp3");
 			
@@ -338,7 +366,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		int userSandwichPositionX;
 
 		userSandwichPositionX = (this.getWidth()/2) - (userSandwichWidth/2);
-		
+
 		if(userSandwichCount > 0) {
 			for(int i=0; i<userSandwichCount; i++){
 				//System.out.println("i층 샌드위치 내용물 : " + exampleBurger[i]);
@@ -346,9 +374,9 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 				int ingredientPositionX = userSandwich[i].ingredientXPos;
 				int ingredientPositionY = userSandwich[i].ingredientYPos;
 				int targetPositionY = userSandwichBottomSpace - (i*userSandwichHeight); //최종 위치
-				
+
 				ingredientPositionY = ingredientPositionY + 10;
-				
+
 				if(ingredientPositionY + 10 > targetPositionY){
 					ingredientPositionY = targetPositionY;
 				}else{
@@ -357,14 +385,18 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 				}//샌드위치 애니메이션
 
 				userSandwich[i].ingredientYPos = ingredientPositionY;
-			
+
 				//g.setColor(burgerColor[ingredientNumber]);
+
 				ImageIcon burgerIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[ingredientNumber] + ".png");
 				g.drawImage(burgerIngredientImage.getImage(), 520, 120, this);
+
 				//g.fillRect(userBurgerPositionX, ingredientPositionY, userBurgerWidth, userBurgerHeight);
-				
 			}
 		}
+
+
+
 	}//method displayUserBurger - 사용자가 만든 샌드위치를 화면에 그리기
 	
 	private void displayMenu(Graphics g) {
@@ -388,7 +420,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			}
 		}
 		else if(phase==2){//치즈 고르기
-			for(int i=1; i<=3; i++) {//maxSancwichMenuNumber
+			for(int i=6; i<=8; i++) {//maxSancwichMenuNumber
 
 				if(i==selectedSandwichMenuNumber) {
 					if(i==maxSancwichMenuNumber)
@@ -398,15 +430,15 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 					//ImageIcon menuItemImage = new ImageIcon(burgerMenuItemImagePath[i] + ".png");
 					//g.drawImage(menuItemImage.getImage(), burgerManuLeftSide + ((i-1)*burgerMenuItemGap), burgerMenuTopSide,this);
-					g.fillRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
+					g.fillRect(SandwichIngredientLeftSpace + ((i-6)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
 				}
-				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i+5]);
+				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i]);
 				//g.drawImage(menuItemImage.getImage(), this.getWidth()/2, burgerMenuTopSide, this);
-				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
+				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-6)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
 			}
 		}
 		else if(phase==3){//채소 고르기 (v1~v3)
-			for(int i=1; i<=3; i++) {//maxSancwichMenuNumber
+			for(int i=9; i<=11; i++) {//maxSancwichMenuNumber
 
 				if(i==selectedSandwichMenuNumber) {
 					if(i==maxSancwichMenuNumber)
@@ -416,15 +448,15 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 					//ImageIcon menuItemImage = new ImageIcon(burgerMenuItemImagePath[i] + ".png");
 					//g.drawImage(menuItemImage.getImage(), burgerManuLeftSide + ((i-1)*burgerMenuItemGap), burgerMenuTopSide,this);
-					g.fillRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
+					g.fillRect(SandwichIngredientLeftSpace + ((i-9)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
 				}
-				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i+8]);
+				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i]);
 				//g.drawImage(menuItemImage.getImage(), this.getWidth()/2, burgerMenuTopSide, this);
-				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
+				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-9)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
 			}
 		}
-		else if(phase==4){//채소 고르기 (s1~s5)
-			for(int i=1; i<=5; i++) {//maxSancwichMenuNumber
+		else if(phase==4 || phase==5){//채소 고르기 (s1~s5)
+			for(int i=12; i<=16; i++) {//maxSancwichMenuNumber
 
 				if(i==selectedSandwichMenuNumber) {
 					if(i==maxSancwichMenuNumber)
@@ -434,33 +466,15 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 					//ImageIcon menuItemImage = new ImageIcon(burgerMenuItemImagePath[i] + ".png");
 					//g.drawImage(menuItemImage.getImage(), burgerManuLeftSide + ((i-1)*burgerMenuItemGap), burgerMenuTopSide,this);
-					g.fillRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
+					g.fillRect(SandwichIngredientLeftSpace + ((i-12)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
 				}
-				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i+11]);
+				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i]);
 				//g.drawImage(menuItemImage.getImage(), this.getWidth()/2, burgerMenuTopSide, this);
-				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
-			}
-		}
-		else if(phase==5){//채소 고르기 (s1~s5)
-			for(int i=1; i<=5; i++) {//maxSancwichMenuNumber
-
-				if(i==selectedSandwichMenuNumber) {
-					if(i==maxSancwichMenuNumber)
-						g.setColor(Color.WHITE); //제출메뉴
-					else
-						g.setColor(sandwichColor[selectedSandwichMenuNumber]);
-
-					//ImageIcon menuItemImage = new ImageIcon(burgerMenuItemImagePath[i] + ".png");
-					//g.drawImage(menuItemImage.getImage(), burgerManuLeftSide + ((i-1)*burgerMenuItemGap), burgerMenuTopSide,this);
-					g.fillRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
-				}
-				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i+11]);
-				//g.drawImage(menuItemImage.getImage(), this.getWidth()/2, burgerMenuTopSide, this);
-				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
+				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-12)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
 			}
 		}
 		else if(phase==6){//고기 고르기
-			for(int i=1; i<=4; i++) {//maxSancwichMenuNumber
+			for(int i=17; i<=20; i++) {//maxSancwichMenuNumber
 
 				if(i==selectedSandwichMenuNumber) {
 					if(i==maxSancwichMenuNumber)
@@ -470,15 +484,15 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 					//ImageIcon menuItemImage = new ImageIcon(burgerMenuItemImagePath[i] + ".png");
 					//g.drawImage(menuItemImage.getImage(), burgerManuLeftSide + ((i-1)*burgerMenuItemGap), burgerMenuTopSide,this);
-					g.fillRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
+					g.fillRect(SandwichIngredientLeftSpace + ((i-17)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
 				}
-				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i+16]);
+				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i]);
 				//g.drawImage(menuItemImage.getImage(), this.getWidth()/2, burgerMenuTopSide, this);
-				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
+				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-17)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
 			}
 		}
 		else if(phase==7){ //소스고르기
-			for(int i=1; i<=4; i++) {//maxSancwichMenuNumber
+			for(int i=21; i<=24; i++) {//maxSancwichMenuNumber
 
 				if(i==selectedSandwichMenuNumber) {
 					if(i==4)
@@ -488,16 +502,16 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 					//ImageIcon menuItemImage = new ImageIcon(burgerMenuItemImagePath[i] + ".png");
 					//g.drawImage(menuItemImage.getImage(), burgerManuLeftSide + ((i-1)*burgerMenuItemGap), burgerMenuTopSide,this);
-					g.fillRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
+					g.fillRect(SandwichIngredientLeftSpace + ((i-21)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
 				}
-				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i+20]);
+				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i]);
 				//g.drawImage(menuItemImage.getImage(), this.getWidth()/2, burgerMenuTopSide, this);
-				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
+				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-21)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
 			}
 			phase=1; //다시 빵부터 시작
 		}
 		else{ //phase=8인 경우, finish 누르는 거를 위해서ㅎㅎ
-			for(int i=1; i<=4; i++) {//maxSancwichMenuNumber
+			for(int i=21; i<=24; i++) {//maxSancwichMenuNumber
 
 				if(i==selectedSandwichMenuNumber) {
 					if(i==4)
@@ -507,11 +521,11 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 
 					//ImageIcon menuItemImage = new ImageIcon(burgerMenuItemImagePath[i] + ".png");
 					//g.drawImage(menuItemImage.getImage(), burgerManuLeftSide + ((i-1)*burgerMenuItemGap), burgerMenuTopSide,this);
-					g.fillRect(SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
+					g.fillRect(SandwichIngredientLeftSpace + ((i-21)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, SandwichIngredientItemWidth, SandwichIngredientItemHeight);
 				}
-				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i+20]);
+				ImageIcon menuItemImage = new ImageIcon(sandwichIngredientImgPath[i]);
 				//g.drawImage(menuItemImage.getImage(), this.getWidth()/2, burgerMenuTopSide, this);
-				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
+				g.drawImage(menuItemImage.getImage(), SandwichIngredientLeftSpace + ((i-21)*SandwichIngredientItemSpace), SandwichIngredientTopSpace, 150, 150,this);
 			}
 			phase=1; //다시 빵부터 시작
 		}
