@@ -2,8 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import java.util.*;
 
@@ -11,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
-public class GameScreen extends JPanel implements KeyListener,Runnable {
+public class GameScreen extends JPanel implements Runnable {
 
 	//UI관련 상수
 	private static final int maxSandwichIngredientCount = 7; //사용자가 만들 수 있는 샌드위치의 최대 층 수 = 7(빵1(b1~b5), 치즈1(c1~c3), 채소1(v1~v3), 채소2(s1~s5), 고기1(m1~m4), 소스1(d1~d3))
@@ -60,7 +58,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 			"resource/ingredient/st1.png", "resource/ingredient/st2.png", "resource/ingredient/st3.png", "resource/ingredient/st4.png", "resource/ingredient/st5.png",
 			"resource/ingredient/mt1.png", "resource/ingredient/mt2.png", "resource/ingredient/mt3.png", "resource/ingredient/mt4.png",
 			"resource/ingredient/chili-sauce.png", "resource/ingredient/mayonaisse.png", "resource/ingredient/mustard.png",
-			"resource/ingredient/finish.png"};
+			"resource/ingredient/wrap.png"};
 	//예시 샌드위치 만들 때 사용됨                                  1~5          6~8         9~11         12~16       17~20        21~24
 	private String sandwichIngredientName[] = {//빵1(b1~b5), 치즈1(c1~c3), 채소1(v1~v3), 채소2(s1~s5), 고기1(m1~m4), 소스1(d1~d3) 순서!
 			"", "b1", "b2", "b3", "b4", "b5", "c1", "c2", "c3", "v1", "v2", "v3", "s1", "s2", "s3", "s4", "s5", "m1", "m2", "m3", "m4", "d2", "d3", "d1", "finish"};
@@ -137,7 +135,7 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 					clearExitScene();
 					rootScreen.moveToResultScreen(false, madeCount, gameTimer);
 				}
-				gameT.sleep(2);
+				gameT.sleep(1);
 			}
 		}catch(InterruptedException ex){
 			
@@ -147,52 +145,6 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		
 	}//thread
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		switch(e.getKeyCode()) {
-			case KeyEvent.VK_LEFT : {
-				if(selectedSandwichMenuNumber <= 1)
-					selectedSandwichMenuNumber = maxSandwichMenuNumber;
-				else
-					selectedSandwichMenuNumber--;
-				break;
-			}
-			case KeyEvent.VK_RIGHT : {
-				if(selectedSandwichMenuNumber >= maxSandwichMenuNumber)
-					selectedSandwichMenuNumber = 1;
-				else
-					selectedSandwichMenuNumber++;
-				break;
-			}
-			case KeyEvent.VK_SPACE :{
-				if(selectedSandwichMenuNumber == maxSandwichMenuNumber)
-					sendSandwich();
-				else {
-					makeSandwich();
-					phase++;
-				}
-				break;
-			}
-			case KeyEvent.VK_UP : {
-				break;
-			}
-			case KeyEvent.VK_DOWN : {
-				break;
-			}
-			case KeyEvent.VK_ENTER : {
-				clearExitScene();
-			}
-		}
-		//revalidate();
-		//repaint();
-	}//method keyPressed - 버거메뉴에 대한 키이벤트 처리
 	
 	private void mousesandwichMenuEvent() {
 		int clickPositionX = mouse.getMouseClickXPos();
@@ -221,6 +173,9 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 					sendSandwich();
 					phase=1;
 				}
+				else if(phase == 8){
+
+				}
 				else {
 					makeSandwich();
 					phase++;
@@ -231,10 +186,6 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		clickPositionY = -1;
 	}//method mousesandwichMenuEvent - 버거 메뉴의 마우스이벤트 처리
 
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
 	
 	private void createExampleSandwich() {
 		Random random = new Random();
@@ -248,6 +199,11 @@ public class GameScreen extends JPanel implements KeyListener,Runnable {
 		exSandwich[2] = 9 + random.nextInt(3);//채소, 9~11 중 1개
 		exSandwich[3] = 12 + random.nextInt(5);//채소, 12~16 중 1개
 		exSandwich[4] = 12 + random.nextInt(5);//채소, 12~16 중 1개
+		if(exSandwich[4]==exSandwich[3] && exSandwich[3] != 16){
+			exSandwich[4]++;
+		}
+		else if(exSandwich[4]==exSandwich[3])
+			exSandwich[4]--;
 		exSandwich[5] = 17 + random.nextInt(4);//고기, 17~20 중 1개
 		exSandwich[6] = 21 + random.nextInt(3);//소스, 21~23 중 1개
 

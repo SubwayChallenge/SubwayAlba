@@ -17,12 +17,7 @@ public class GameManagement extends JFrame {
 		if(mainScreen != null) {
 			remove(mainScreen);
 		}
-		
-		if(gameScreen != null) {
-			removeKeyListener(gameScreen);
-			remove(gameScreen);
-		}
-		
+
 		if(chooseDifficulty != null) {
 			remove(chooseDifficulty);
 		}
@@ -39,7 +34,6 @@ public class GameManagement extends JFrame {
 
 		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60);
 		setSize(1280, 720);
-		addKeyListener(gameScreen);
 		add(gameScreen);
 
 		playBackgroundMusic("resource/sound/main_back.mp3");
@@ -82,7 +76,6 @@ public class GameManagement extends JFrame {
 
 		resultScreen = new ResultScreen(inputResult, inputsandwichCount, inputTimer);
 		setSize(1280, 720);
-		//addKeyListener(gameScene);
 		add(resultScreen);
 		
 		if(inputResult)
