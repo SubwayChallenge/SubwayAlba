@@ -16,16 +16,20 @@ public class ResultScreen extends JPanel implements Runnable {
 
 	private Thread resultScreenT;
 	private int resultTime;
+	private int highscore;
 	private int resultSandwichCount;
 	private CustomMouse mouse;
 	private Image retryBtn;
 	private boolean flag;
+	private int Highscore;
 
-	public ResultScreen(CustomMouse inputMouseListener, GameManagement inputRootFrame, boolean gameResult, int sandwichCount, int leftTime){
+	public ResultScreen(CustomMouse inputMouseListener, GameManagement inputRootFrame, boolean gameResult, int sandwichCount, int leftTime, int record){
 		mouse 	  = inputMouseListener;
 
+		highscore =record;
 		results = gameResult;
 		resultTime = leftTime;
+		highscore = record;
 		resultSandwichCount = sandwichCount;
 		resultScreen = inputRootFrame;
 
@@ -35,7 +39,6 @@ public class ResultScreen extends JPanel implements Runnable {
 
 		flag = false;
 	}
-
 	public void clearExitScene() {
 		if(resultScreenT!=null) {
 			resultScreenT.interrupt();
@@ -52,7 +55,7 @@ public class ResultScreen extends JPanel implements Runnable {
 				repaint();
 				revalidate();
 
-				resultScreenT.sleep(2000);
+				resultScreenT.sleep(2);
 			}
 		} catch (InterruptedException ex) {
 		} finally {
@@ -61,11 +64,16 @@ public class ResultScreen extends JPanel implements Runnable {
 	}
 
 	private void buttonEvent() {
-		if(mouse.getMouseXPos()>1060 && mouse.getMouseXPos()<1145 && mouse.getMouseYPos()>650 && mouse.getMouseYPos()<670) {
+		if(mouse.getMouseXPos()>850 && mouse.getMouseXPos()<950 && mouse.getMouseYPos()>100 && mouse.getMouseYPos()<300) {
 			retryBtn = new ImageIcon("resource/again2.png").getImage();
 		}
 		else{
 			retryBtn = new ImageIcon("resource/again1.png").getImage();
+		}
+
+		if(mouse.getMouseClickXPos()>850 && mouse.getMouseClickXPos()<950 && mouse.getMouseClickYPos()>100 && mouse.getMouseClickYPos()<300) {
+			clearExitScene();
+			resultScreen.moveToStartScreen(highscore);
 		}
 	}
 
@@ -76,25 +84,34 @@ public class ResultScreen extends JPanel implements Runnable {
 		if(results) {
 			
 			g.drawImage(successImg.getImage(), 0, 0, getWidth(), getHeight(), this);
-			
+			g.drawImage(retryBtn, 800, 100, 200, 200, this);
 			g.setFont(resultFont);
 			g.setColor(Color.white);
-			
-			int sec  = resultTime % 60;
-		    int min  = resultTime / 60 % 60; // 목표시간 빼기 결과시간 할 것임
-		    
-			g.drawString( min + " : " + sec, 1125 , 30);
+
+		    if(highscore == 0){
+		    	highscore = resultTime;
+			}
+		    else if(resultTime > highscore){
+				highscore = resultTime;
+			}
+			int mil  = highscore/ 60 % 10;
+			int sec  = highscore / 600 % 600;
+
+			int mil2  = resultTime/ 60 % 10;
+			int sec2  = resultTime / 600 % 600;
+
+			g.drawString( sec + " : " + mil, 1050 , 30);
 			g.setColor(Color.yellow);
-			g.drawString(min + " : " + sec, 1125 , 65);
+			g.drawString(sec2 + " : " + mil2, 1050 , 65);
 
 		}
 		else{
 			g.setFont(resultFont);
-			g.setColor(Color.green);
+			g.setColor(Color.black);
 			
 			g.drawImage(failImg.getImage(), 0, 0, getWidth(), getHeight(), this);
-			g.drawImage(retryBtn, 500, 500, 80, 80, this);
-			g.drawString("You made only "+ resultSandwichCount + " sandwiches", this.getWidth() / 3 , 630); //목표 - 만든수량 할 것임
+			g.drawImage(retryBtn, 800, 100, 200, 200, this);
+			g.drawString("You made only "+ resultSandwichCount + " sandwiches", (this.getWidth() / 3) - 10, 620); //목표 - 만든수량 할 것임
 		}
 	}
 }

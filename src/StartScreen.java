@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 
 
 public class StartScreen extends JPanel implements Runnable{
-	private int planeWidth, planeHeight;
 	private CustomMouse mouse;
 	private GameManagement startScreen;
 
@@ -16,14 +15,15 @@ public class StartScreen extends JPanel implements Runnable{
 	private Thread startScreenT;
 	private boolean flag;
 
+	private int highscore=0;
 	Image backgroundImg;
 	
-	public StartScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagement inputStartScreen) {
+	public StartScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagement inputStartScreen, int record) {
 
 		backgroundImg = new ImageIcon("resource/background.png").getImage();
 
-		planeWidth  = screenWidth;
-		planeHeight = screenHeight;
+		highscore =record;
+		System.out.println(highscore);
 		mouse 	  = inputMouseListener;
 		startScreen = inputStartScreen;
 		flag = false;
@@ -76,15 +76,14 @@ public class StartScreen extends JPanel implements Runnable{
 
 		if(mouse.getMouseClickXPos()>540 && mouse.getMouseClickXPos()<660 && mouse.getMouseClickYPos()>300 && mouse.getMouseClickYPos()<440) {
 			clearExitScene();
-			startScreen.moveToChooseDiffScreen();
+			startScreen.moveToChooseDiffScreen(highscore);
 		}
 		if(mouse.getMouseClickXPos()>1050 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>40 && mouse.getMouseClickYPos()<160) {
 			System.exit(0);
 			try {
-				startScreenT.sleep(2000); //2초동안 잠시 정지시킨다
+				startScreenT.sleep(200); //200 밀리초동안 잠시 정지시킨다
 			} catch (Exception e) {
 			}
-			//System.exit(0); //종료 안됨
 		}
 	}
 

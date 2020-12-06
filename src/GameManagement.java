@@ -7,8 +7,8 @@ public class GameManagement extends JFrame {
 	private GameScreen gameScreen;
 	private ChooseDifficulty chooseDifficulty;
 	private ResultScreen resultScreen;
-	
 	BgmPlayer backgroundMusic;
+	private int highscore;
 	
 	private CustomMouse mouseEventListener;
 	
@@ -29,10 +29,10 @@ public class GameManagement extends JFrame {
 		repaint();
 	}
 	
-	public void moveToStartScreen() {
+	public void moveToStartScreen(int record) {
 		clearFrame();
-
-		startScreen = new StartScreen(1280, 720, mouseEventListener, rootScreen);
+		highscore = record;
+		startScreen = new StartScreen(1280, 720, mouseEventListener, rootScreen, record);
 		setSize(1200, 720);
 		add(startScreen);
 
@@ -43,10 +43,10 @@ public class GameManagement extends JFrame {
 		revalidate();
 	}
 
-	public void moveToChooseDiffScreen() {
+	public void moveToChooseDiffScreen(int record) {
 		clearFrame();
 
-		chooseDifficulty = new ChooseDifficulty(mouseEventListener, rootScreen);
+		chooseDifficulty = new ChooseDifficulty(mouseEventListener, rootScreen,record);
 		setSize(1200, 720);
 		add(chooseDifficulty);
 
@@ -57,10 +57,10 @@ public class GameManagement extends JFrame {
 		revalidate();
 	}
 
-	public void moveToGameScreen(int targetScore) {
+	public void moveToGameScreen(int targetScore, int record) {
 		clearFrame();
 
-		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60);
+		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60,record);
 		setSize(1200, 720);
 		add(gameScreen);
 
@@ -71,10 +71,10 @@ public class GameManagement extends JFrame {
 		revalidate();
 	}
 
-	public void moveToResultScreen(boolean inputResult, int inputsandwichCount, int inputTimer) {
+	public void moveToResultScreen(boolean inputResult, int inputsandwichCount, int inputTimer, int record) {
 		clearFrame();
 
-		resultScreen = new ResultScreen(mouseEventListener,rootScreen, inputResult, inputsandwichCount, inputTimer);
+		resultScreen = new ResultScreen(mouseEventListener,rootScreen, inputResult, inputsandwichCount, inputTimer, record);
 		setSize(1200, 720);
 		add(resultScreen);
 		
@@ -118,7 +118,7 @@ public class GameManagement extends JFrame {
 		addMouseListener(mouseEventListener);
 	    addMouseMotionListener(mouseEventListener);
 
-		moveToStartScreen();
+		moveToStartScreen(highscore);
 	}
 	
 	public static void main(String[] args) {

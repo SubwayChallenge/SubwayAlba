@@ -7,8 +7,9 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = 1L;
 
-	int orders=0;//the number of orders for sandwiches
-	int levelNum =0;//level for game
+	private int orders=0;//the number of orders for sandwiches
+	private int levelNum =0;//level for game
+	private int highscore;
 
 	ImageIcon open= new ImageIcon("resource/open1.png");
 	ImageIcon open2= new ImageIcon("resource/open2.png");
@@ -41,10 +42,12 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 	private Thread mouseEventT;
 	private boolean flag;
 	
-	public ChooseDifficulty(CustomMouse inputMouseListener, GameManagement inputRootFrame) {
+	public ChooseDifficulty(CustomMouse inputMouseListener, GameManagement inputRootFrame, int record) {
 		mouse = inputMouseListener;
 		chooseDifficulty = inputRootFrame;
 		flag = false;
+		highscore =record;
+		System.out.println(highscore);
 
 		mouseEventT = new Thread(this);
 		mouseEventT.start();
@@ -149,7 +152,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 			}
 			else{
 				clearExitScene();
-				chooseDifficulty.moveToGameScreen(orders);
+				chooseDifficulty.moveToGameScreen(orders,highscore);
 			}
 		}
 	}

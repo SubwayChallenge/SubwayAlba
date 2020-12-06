@@ -54,6 +54,7 @@ public class GameScreen extends JPanel implements Runnable {
 	private int userSandwichCount;
 	private int[] exSandwich;
 	private int maxExSandwichNumber;
+	private int highscore;
 	
 	private CustomMouse mouse;
 	private GameManagement gameScreen;
@@ -63,13 +64,14 @@ public class GameScreen extends JPanel implements Runnable {
 	private boolean flag;
 
 	/*method*/
-	public GameScreen(CustomMouse inputMouseListener, GameManagement inputRootFrame, int inputTargetScore, int inputTimer) {
+	public GameScreen(CustomMouse inputMouseListener, GameManagement inputRootFrame, int inputTargetScore, int inputTimer, int record) {
 		
 		background = new ImageIcon("resource/background3.png");
 		
 		mouse 	  = inputMouseListener;
 		gameScreen = inputRootFrame;
-		
+		highscore = record;
+
 		gameTimer = inputTimer * 600;
 		timeLimit  = inputTimer * 600;
 
@@ -116,7 +118,7 @@ public class GameScreen extends JPanel implements Runnable {
 				if(gameTimer<=0 && orderCount != madeCount) {
 					System.out.println("1");
 					clearExitScene();
-					gameScreen.moveToResultScreen(false, madeCount, gameTimer);
+					gameScreen.moveToResultScreen(false, madeCount, gameTimer, highscore);
 				}
 				gameT.sleep(1);
 			}
@@ -160,7 +162,7 @@ public class GameScreen extends JPanel implements Runnable {
 					if(orderCount == madeCount){
 						System.out.println("3");
 						clearExitScene();
-						gameScreen.moveToResultScreen(true, madeCount, gameTimer);
+						gameScreen.moveToResultScreen(true, madeCount, gameTimer, highscore);
 						clearExitScene();
 					}
 					userSandwichCount = 0;
@@ -257,7 +259,7 @@ public class GameScreen extends JPanel implements Runnable {
 		if(maxExSandwichNumber > 0) {
 			for(int i=0; i<maxExSandwichNumber; i++){
 				ImageIcon sandwichIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[exSandwich[i]] + ".png");
-				g.drawImage(sandwichIngredientImage.getImage(), 50, 100,250,260,this);
+				g.drawImage(sandwichIngredientImage.getImage(), 65, 110,190,195,this);
 			}
 		}
 	}//method displayExamplesandwich - 만들어야 할 샌드위치 그리기
@@ -271,6 +273,15 @@ public class GameScreen extends JPanel implements Runnable {
 			}
 		}
 	}//method displayUsersandwich - 사용자가 만든 샌드위치를 화면에 그리기
+
+	private void displayDone(Graphics g) {
+		if(madeCount > 0) {
+			for(int i=0; i<madeCount; i++){
+				ImageIcon sandwichIngredientImage = new ImageIcon("resource/menuItem/" + sandwichIngredientName[24] + ".png");
+				g.drawImage(sandwichIngredientImage.getImage(), 850 + 30*i, 300, 90, 90, this);
+			}
+		}
+	}
 
 	private void drawSandwich(Graphics g, int startNum){
 		for(int i=1; i<=maxSandwichMenuNumber; i++) {
@@ -321,10 +332,10 @@ public class GameScreen extends JPanel implements Runnable {
 		g.setColor(Color.black);
 		g.drawString(""+orderCount, this.getWidth() - 130 , 160);
 		g.drawString(""+madeCount, this.getWidth() - 130 , 210);
-		int sec  = gameTimer % 60;
-	    int min  = gameTimer / 60 % 60;
+		int mil  = gameTimer/ 60 % 10;
+	    int sec  = gameTimer / 600 % 600;
 	    
-		g.drawString(min + " : " + sec , this.getWidth()-130, 260);
+		g.drawString(sec + " : " + mil , this.getWidth()-130, 260);
 		
 		float test = ((float)gameTimer/timeLimit) * 100;
 		
@@ -342,6 +353,7 @@ public class GameScreen extends JPanel implements Runnable {
 		displayBackUI(g);
 		displayExSandwich(g);
 		displayUserSandwich(g);
+		displayDone(g);
 		displayMenu(g);
 		displayUI(g);
 	}//method update - repaint시 화면 그리기
