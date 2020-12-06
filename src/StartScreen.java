@@ -10,7 +10,6 @@ public class StartScreen extends JPanel implements Runnable{
 	private GameManagement startScreen;
 
 	private Image startBtnImg;
-	private Image endImg;
 
 	private Thread startScreenT;
 	private boolean flag;
@@ -67,23 +66,10 @@ public class StartScreen extends JPanel implements Runnable{
 			startBtnImg = new ImageIcon("resource/startbutton1.png").getImage();
 		}
 
-		if(mouse.getMouseXPos()>1050 && mouse.getMouseXPos()<1145 && mouse.getMouseYPos()>40 && mouse.getMouseYPos()<160) {
-			endImg = new ImageIcon("resource/exit2.png").getImage();
-		}
-		else{
-			endImg = new ImageIcon("resource/exit1.png").getImage();
-		}
-
 		if(mouse.getMouseClickXPos()>540 && mouse.getMouseClickXPos()<660 && mouse.getMouseClickYPos()>300 && mouse.getMouseClickYPos()<440) {
+			startScreen.playEffectSound("resource/sound/button_sound.mp3");
 			clearExitScene();
 			startScreen.moveToChooseDiffScreen(highscore);
-		}
-		if(mouse.getMouseClickXPos()>1050 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>40 && mouse.getMouseClickYPos()<160) {
-			System.exit(0);
-			try {
-				startScreenT.sleep(200); //200 밀리초동안 잠시 정지시킨다
-			} catch (Exception e) {
-			}
 		}
 	}
 
@@ -91,6 +77,5 @@ public class StartScreen extends JPanel implements Runnable{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.drawImage(backgroundImg, 0, 0, getWidth(), getHeight(), this);
 		g2.drawImage(startBtnImg, 540, 280, 120, 120,this);
-		g2.drawImage(endImg, 1060, 40, 80, 80, this);
 	}
 }

@@ -122,6 +122,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean isOpen=((xx>=800+6&&xx<=800+180)&&(yy>=400+100&&yy<=400+169)); //270
 
 		if(easy){
+			chooseDifficulty.playEffectSound("resource/sound/button_sound.mp3");
 			orders=3;
 			check_col=col1-110;
 			check_row=row1-150;
@@ -130,6 +131,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		}
 
 		if(normal){
+			chooseDifficulty.playEffectSound("resource/sound/button_sound.mp3");
 			orders=5;
 			check_col=col2-110;
 			check_row=row1-150;
@@ -138,6 +140,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		}
 
 		if(hard){
+			chooseDifficulty.playEffectSound("resource/sound/button_sound.mp3");
 			orders=8;
 			check_col=col3-110;
 			check_row=row1-150;
@@ -149,8 +152,10 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 			if(orders==0){
 				error_x=130;
 				error_y=20;
+				chooseDifficulty.playEffectSound("resource/sound/Falling_Sound.mp3");
 			}
 			else{
+				chooseDifficulty.playEffectSound("resource/sound/button_sound.mp3");
 				clearExitScene();
 				chooseDifficulty.moveToGameScreen(orders,highscore);
 			}

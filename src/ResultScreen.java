@@ -70,8 +70,8 @@ public class ResultScreen extends JPanel implements Runnable {
 		else{
 			retryBtn = new ImageIcon("resource/again1.png").getImage();
 		}
-
 		if(mouse.getMouseClickXPos()>850 && mouse.getMouseClickXPos()<950 && mouse.getMouseClickYPos()>100 && mouse.getMouseClickYPos()<300) {
+			resultScreen.playEffectSound("resource/sound/button_sound.mp3");
 			clearExitScene();
 			resultScreen.moveToStartScreen(highscore);
 		}
@@ -82,7 +82,6 @@ public class ResultScreen extends JPanel implements Runnable {
 		Font resultFont = new Font("Verdana", Font.PLAIN, 30);
 		
 		if(results) {
-			resultScreen.playEffectSound("resource/sound/Game_complete.mp3");
 			g.drawImage(successImg.getImage(), 0, 0, getWidth(), getHeight(), this);
 			g.drawImage(retryBtn, 800, 100, 200, 200, this);
 			g.setFont(resultFont);
@@ -108,7 +107,6 @@ public class ResultScreen extends JPanel implements Runnable {
 		else{
 			g.setFont(resultFont);
 			g.setColor(Color.black);
-			resultScreen.playEffectSound("resource/sound/Game_fail.mp3");
 			g.drawImage(failImg.getImage(), 0, 0, getWidth(), getHeight(), this);
 			g.drawImage(retryBtn, 800, 100, 200, 200, this);
 			g.drawString("You made only "+ resultSandwichCount + " sandwiches", (this.getWidth() / 3) - 10, 620); //목표 - 만든수량 할 것임
