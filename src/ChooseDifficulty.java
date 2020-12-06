@@ -7,21 +7,23 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 
 	private static final long serialVersionUID = 1L;
 
-	String price="\0";//130, 299, 301, 303, 306, 308, 310, 313, 315, 317 the price of items -> price 관련된거는 다 없애도 될 것 같아!
-	int orders=0;//132, 272, 275, the number of orders for sandwiches
-
+	int orders=0;//the number of orders for sandwiches
+	int levelNum =0;//level for game
 
 	ImageIcon open= new ImageIcon("resource/open1.png");
 	ImageIcon open2= new ImageIcon("resource/open2.png");
 
 	ImageIcon selectedDifficulty=new ImageIcon("resource/checked.png");//104, 누를 때 생기는 원
 	ImageIcon chooseErrorMessage=new ImageIcon("resource/errormsg.png");
-
+	ImageIcon three = new ImageIcon("resource/three.png");
+	ImageIcon five = new ImageIcon("resource/five.png");
+	ImageIcon eight = new ImageIcon("resource/eight.png");
 	ImageIcon backImg=new ImageIcon("resource/background2.png");//71
 
 	ImageIcon openImg, open2Img;
 	ImageIcon check;
 	ImageIcon error;
+
 
 	Image before,after;
 
@@ -32,16 +34,18 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 
 	int check_col=-300;int check_row=-300;//draw a check ring for top
 	int error_x=-300;int error_y=-300;
-
 	int level_x=-300;int level_y=-300;
 	
 	private CustomMouse mouse;
-	private GameManagement rootScreen;
+	private GameManagement chooseDifficulty;
 	private Thread mouseEventT;
+	private boolean flag;
 	
 	public ChooseDifficulty(CustomMouse inputMouseListener, GameManagement inputRootFrame) {
 		mouse = inputMouseListener;
-		rootScreen = inputRootFrame;
+		chooseDifficulty = inputRootFrame;
+		flag = false;
+
 		mouseEventT = new Thread(this);
 		mouseEventT.start();
 	}
@@ -49,7 +53,9 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 	public void clearExitScene() {
 		System.out.println("ClearExitScene");
 		if(mouseEventT!=null) {
+			flag = true;
 			mouseEventT.interrupt();
+			System.gc();
 		}
 	}
 	
@@ -85,11 +91,20 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 
 		g2.setFont(font1);
 		g2.setColor(Color.black);
-		g2.drawString(price,level_x,level_y);//string for price of items
-
+		switch(levelNum){
+			case 0:
+				g2.drawImage(three.getImage(), level_x, level_y, this);
+				break;
+			case 1:
+				g2.drawImage(five.getImage(), level_x, level_y, this);
+				break;
+			case 2:
+				g2.drawImage(eight.getImage(), level_x, level_y, this);
+				break;
+		}
 		g2.setFont(font2);
 
-		g2.drawString("total: "+orders,830,580);//string for total hamburgers
+		g2.drawString("Total: "+orders,830,580);//string for total hamburgers
 
 	}
 
@@ -101,9 +116,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean normal=((xx>=row1-70&&xx<=row1+70)&&(yy>=col2-56&&yy<=col2+56));
 		boolean hard=((xx>=row1-70&&xx<=row1+70)&&(yy>=col3-56&&yy<=col3+56));
 
-
-		boolean isOpen=((xx>=800+6&&xx<=800+198)&&(yy>=400+100&&yy<=400+169)); //270
-
+		boolean isOpen=((xx>=800+6&&xx<=800+180)&&(yy>=400+100&&yy<=400+169)); //270
 
 		if(easy){
 			orders=3;
@@ -114,7 +127,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		}
 
 		if(normal){
-			orders=6;
+			orders=5;
 			check_col=col2-110;
 			check_row=row1-150;
 			error_x=-300;
@@ -122,7 +135,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		}
 
 		if(hard){
-			orders=9;
+			orders=8;
 			check_col=col3-110;
 			check_row=row1-150;
 			error_x=-300;
@@ -136,11 +149,9 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 			}
 			else{
 				clearExitScene();
-				rootScreen.moveToGameScreen(orders);
+				chooseDifficulty.moveToGameScreen(orders);
 			}
 		}
-
-		repaint();
 	}
 
 	public void mouseMoveEvent() {
@@ -152,13 +163,12 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean normal=((xx>=row1-70&&xx<=row1+70)&&(yy>=col2-56&&yy<=col2+56));
 		boolean hard=((xx>=row1-70&&xx<=row1+70)&&(yy>=col3-56&&yy<=col3+56));
 
-
-		boolean isOpen=((xx>=800+6&&xx<=800+198)&&(yy>=400+100&&yy<=400+169)); //270
+		boolean isOpen=((xx>=800+6&&xx<=800+180)&&(yy>=400+100&&yy<=400+169)); //270
 
 		if(easy){
-			price="3개";
-			level_x=443;
-			level_y=180;
+			levelNum =0;
+			level_x=350;
+			level_y=30;
 		}
 
 		else{
@@ -167,32 +177,30 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		}
 
 		if(normal){
-			price="6개";
-			level_x=443;
-			level_y=360;
+			levelNum =1;
+			level_x=350;
+			level_y=200;
 		}
 
 		if(hard){
-			price="9개";
-			level_x=443;
-			level_y=545;
+			levelNum =2;
+			level_x=350;
+			level_y=400;
 		}
 		//if the mouse is on the 'start', 'start' color is change to orange 
 		if(isOpen){
 			openImg = open2Img;
-
-
 		}
-
-		repaint();
 	}
 
 	@Override
 	public void run() {
 		try{
-			while(!mouseEventT.isInterrupted()){
+			while(!flag){
 				mouseClickEvent();
 				mouseMoveEvent();
+
+				repaint();
 
 				mouseEventT.sleep(1);
 			}

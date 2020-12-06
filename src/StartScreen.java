@@ -5,37 +5,37 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
-public class MainScreen extends JPanel implements Runnable{
+public class StartScreen extends JPanel implements Runnable{
 	private int planeWidth, planeHeight;
 	private CustomMouse mouse;
-	private GameManagement mainScreen;
+	private GameManagement startScreen;
 
 	private Image startBtnImg;
 	private Image endImg;
 
-	private Thread mainSceneT;
+	private Thread startScreenT;
 	private boolean flag;
 
 	Image backgroundImg;
 	
-	public MainScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagement inputMainScreen) {
+	public StartScreen(int screenWidth, int screenHeight, CustomMouse inputMouseListener, GameManagement inputStartScreen) {
 
 		backgroundImg = new ImageIcon("resource/background.png").getImage();
 
 		planeWidth  = screenWidth;
 		planeHeight = screenHeight;
 		mouse 	  = inputMouseListener;
-		mainScreen = inputMainScreen;
+		startScreen = inputStartScreen;
 		flag = false;
 
-		mainSceneT = new Thread(this);
-		mainSceneT.start();
+		startScreenT = new Thread(this);
+		startScreenT.start();
 	}
 
 	public void clearExitScene() {
-		if(mainSceneT != null) {
+		if(startScreenT != null) {
 			flag = true;
-			mainSceneT.interrupt();
+			startScreenT.interrupt();
 			System.gc();
 		}
 	}
@@ -49,11 +49,11 @@ public class MainScreen extends JPanel implements Runnable{
 				repaint();
 				revalidate();
 
-				mainSceneT.sleep(2);
+				startScreenT.sleep(2);
 			}
 		}catch(InterruptedException ex){	
 		} finally {
-			System.out.println("mainScene Thread dead");
+			System.out.println("startScreen Thread dead");
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class MainScreen extends JPanel implements Runnable{
 			startBtnImg = new ImageIcon("resource/startbutton1.png").getImage();
 		}
 
-		if(mouse.getMouseXPos()>1060 && mouse.getMouseXPos()<1145 && mouse.getMouseYPos()>40 && mouse.getMouseYPos()<160) {
+		if(mouse.getMouseXPos()>1050 && mouse.getMouseXPos()<1145 && mouse.getMouseYPos()>40 && mouse.getMouseYPos()<160) {
 			endImg = new ImageIcon("resource/exit2.png").getImage();
 		}
 		else{
@@ -76,12 +76,12 @@ public class MainScreen extends JPanel implements Runnable{
 
 		if(mouse.getMouseClickXPos()>540 && mouse.getMouseClickXPos()<660 && mouse.getMouseClickYPos()>300 && mouse.getMouseClickYPos()<440) {
 			clearExitScene();
-			mainScreen.moveToChooseDiffScreen();
+			startScreen.moveToChooseDiffScreen();
 		}
-		if(mouse.getMouseClickXPos()>1060 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>40 && mouse.getMouseClickYPos()<160) {
+		if(mouse.getMouseClickXPos()>1050 && mouse.getMouseClickXPos()<1145 && mouse.getMouseClickYPos()>40 && mouse.getMouseClickYPos()<160) {
 			System.exit(0);
 			try {
-				mainSceneT.sleep(2000); //2초동안 잠시 정지시킨다
+				startScreenT.sleep(2000); //2초동안 잠시 정지시킨다
 			} catch (Exception e) {
 			}
 			//System.exit(0); //종료 안됨

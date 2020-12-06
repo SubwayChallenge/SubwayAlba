@@ -3,7 +3,7 @@ import javax.swing.*;
 public class GameManagement extends JFrame {
 	
 	private GameManagement rootScreen;
-	private MainScreen mainScreen;
+	private StartScreen startScreen;
 	private GameScreen gameScreen;
 	private ChooseDifficulty chooseDifficulty;
 	private ResultScreen resultScreen;
@@ -14,8 +14,8 @@ public class GameManagement extends JFrame {
 	
 	public void clearFrame() {
 		
-		if(mainScreen != null) {
-			remove(mainScreen);
+		if(startScreen != null) {
+			remove(startScreen);
 		}
 
 		if(chooseDifficulty != null) {
@@ -29,26 +29,12 @@ public class GameManagement extends JFrame {
 		repaint();
 	}
 	
-	public void moveToGameScreen(int targetScore) {
+	public void moveToStartScreen() {
 		clearFrame();
 
-		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60);
-		setSize(1280, 720);
-		add(gameScreen);
-
-		playBackgroundMusic("resource/sound/main_back.mp3");
-
-		System.out.println("∞‘¿”æ¿ ¿Ãµø");
-		
-		revalidate();
-	}
-	
-	public void moveToMainScreen() {
-		clearFrame();
-
-		mainScreen = new MainScreen(1280, 720, mouseEventListener, rootScreen);
+		startScreen = new StartScreen(1280, 720, mouseEventListener, rootScreen);
 		setSize(1200, 720);
-		add(mainScreen);
+		add(startScreen);
 
 		playBackgroundMusic("resource/sound/main_back.mp3");
 		
@@ -56,7 +42,7 @@ public class GameManagement extends JFrame {
 		
 		revalidate();
 	}
-	
+
 	public void moveToChooseDiffScreen() {
 		clearFrame();
 
@@ -70,19 +56,34 @@ public class GameManagement extends JFrame {
 
 		revalidate();
 	}
-	
+
+	public void moveToGameScreen(int targetScore) {
+		clearFrame();
+
+		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60);
+		setSize(1200, 720);
+		add(gameScreen);
+
+		playBackgroundMusic("resource/sound/main_back.mp3");
+
+		System.out.println("∞‘¿”æ¿ ¿Ãµø");
+
+		revalidate();
+	}
+
 	public void moveToResultScreen(boolean inputResult, int inputsandwichCount, int inputTimer) {
 		clearFrame();
 
-		resultScreen = new ResultScreen(inputResult, inputsandwichCount, inputTimer);
-		setSize(1280, 720);
+		resultScreen = new ResultScreen(mouseEventListener,rootScreen, inputResult, inputsandwichCount, inputTimer);
+		setSize(1200, 720);
 		add(resultScreen);
 		
 		if(inputResult)
 			playBackgroundMusic("resource/sound/mission_complete.mp3");
 		else
 			playBackgroundMusic("resource/sound/mission_fail.mp3");
-		
+
+		System.out.println("∞·∞˙æ¿ ¿Ãµø");
 
 		revalidate();
 	}
@@ -117,7 +118,7 @@ public class GameManagement extends JFrame {
 		addMouseListener(mouseEventListener);
 	    addMouseMotionListener(mouseEventListener);
 
-		moveToMainScreen();
+		moveToStartScreen();
 	}
 	
 	public static void main(String[] args) {

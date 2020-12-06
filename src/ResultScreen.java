@@ -1,30 +1,63 @@
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
-public class ResultScreen extends JPanel {
+public class ResultScreen extends JPanel implements Runnable {
 	Container contentPane;
 
 	ImageIcon successImg = new ImageIcon("resource/success.png");
 	ImageIcon failImg = new ImageIcon("resource/failed.png");
 	private boolean results;
-	
+	private GameManagement resultScreen;
+
+	private Thread resultScreenT;
 	private int resultTime;
 	private int resultSandwichCount;
 	private CustomMouse mouse;
 	private Image retryBtn;
-	
-	ResultScreen(boolean gameResult, int sandwichCount, int leftTime){
+	private boolean flag;
+
+	public ResultScreen(CustomMouse inputMouseListener, GameManagement inputRootFrame, boolean gameResult, int sandwichCount, int leftTime){
+		mouse 	  = inputMouseListener;
 
 		results = gameResult;
 		resultTime = leftTime;
 		resultSandwichCount = sandwichCount;
+		resultScreen = inputRootFrame;
 
-		CustomMouse inputMouseListener = new CustomMouse();
-		mouse 	  = inputMouseListener;
+		resultScreenT=new Thread(this);
+		resultScreenT.start();
+
+
+		flag = false;
+	}
+
+	public void clearExitScene() {
+		if(resultScreenT!=null) {
+			resultScreenT.interrupt();
+			System.gc();
+			flag = true;
+		}
+	}//method clearExitScene - 현재 씬을 말끔히 지워준다.
+
+	public void run() {
+		try {
+			while (!flag) {
+				buttonEvent();
+
+				repaint();
+				revalidate();
+
+				resultScreenT.sleep(2000);
+			}
+		} catch (InterruptedException ex) {
+		} finally {
+			System.out.println("resultScreen Thread dead");
+		}
 	}
 
 	private void buttonEvent() {
