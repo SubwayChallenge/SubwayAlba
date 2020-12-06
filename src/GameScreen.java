@@ -116,7 +116,6 @@ public class GameScreen extends JPanel implements Runnable {
 				revalidate();
 
 				if(gameTimer<=0 && orderCount != madeCount) {
-					System.out.println("1");
 					clearExitScene();
 					gameScreen.moveToResultScreen(false, madeCount, gameTimer, highscore);
 				}
@@ -160,7 +159,6 @@ public class GameScreen extends JPanel implements Runnable {
 				if(userSandwichCount == 7) {
 					sendSandwich();
 					if(orderCount == madeCount){
-						System.out.println("3");
 						clearExitScene();
 						gameScreen.moveToResultScreen(true, madeCount, gameTimer, highscore);
 						clearExitScene();
@@ -247,10 +245,10 @@ public class GameScreen extends JPanel implements Runnable {
 		if(solutionCheck) {
 			System.out.println("correct");
 			madeCount += 1;
-			gameScreen.playEffectSound("resource/sound/same_sandwich.mp3");
+			gameScreen.playEffectSound("resource/sound/correct.mp3");
 		}else{
 			System.out.println("fail");
-			gameScreen.playEffectSound("resource/sound/diff_sandwich.mp3");
+			gameScreen.playEffectSound("resource/sound/not_correct.mp3");
 		}
 		createExampleSandwich();
 	}//method sendsandwich - 현재 만든 샌드위치를 제출하고 정답 확인
