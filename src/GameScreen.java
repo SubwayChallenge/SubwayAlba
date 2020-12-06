@@ -245,10 +245,10 @@ public class GameScreen extends JPanel implements Runnable {
 		if(solutionCheck) {
 			System.out.println("correct");
 			madeCount += 1;
-			gameScreen.playEffectSound("resource/sound/correct.mp3");
+			gameScreen.playEffectSound("resource/sound/same_sandwich.mp3");
 		}else{
 			System.out.println("fail");
-			gameScreen.playEffectSound("resource/sound/not_correct.mp3");
+			gameScreen.playEffectSound("resource/sound/diff_sandwich.mp3");
 		}
 		createExampleSandwich();
 	}//method sendsandwich - 현재 만든 샌드위치를 제출하고 정답 확인
