@@ -7,8 +7,8 @@ public class GameManagement extends JFrame {
 	private GameScreen gameScreen;
 	private ChooseDifficulty chooseDifficulty;
 	private ResultScreen resultScreen;
-	
 	BgmPlayer backgroundMusic;
+	private int highscore;
 	
 	private CustomMouse mouseEventListener;
 	
@@ -29,59 +29,59 @@ public class GameManagement extends JFrame {
 		repaint();
 	}
 	
-	public void moveToStartScreen() {
+	public void moveToStartScreen(int record) {
 		clearFrame();
-
-		startScreen = new StartScreen(1280, 720, mouseEventListener, rootScreen);
+		highscore = record;
+		startScreen = new StartScreen(1280, 720, mouseEventListener, rootScreen, record);
 		setSize(1200, 720);
 		add(startScreen);
 
-		playBackgroundMusic("resource/sound/background_music.mp3");
+		playBackgroundMusic("resource/sound/main_back.mp3");
 		
 		System.out.println("메인씬 이동");
 		
 		revalidate();
 	}
 
-	public void moveToChooseDiffScreen() {
+	public void moveToChooseDiffScreen(int record) {
 		clearFrame();
 
-		chooseDifficulty = new ChooseDifficulty(mouseEventListener, rootScreen);
+		chooseDifficulty = new ChooseDifficulty(mouseEventListener, rootScreen,record);
 		setSize(1200, 720);
 		add(chooseDifficulty);
 
-		playBackgroundMusic("resource/sound/choose_level.mp3");
+		playBackgroundMusic("resource/sound/clothing_back.mp3");
 		
 		System.out.println("난이도 고르기 이동");
 
 		revalidate();
 	}
 
-	public void moveToGameScreen(int targetScore) {
+	public void moveToGameScreen(int targetScore, int record) {
 		clearFrame();
 
-		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60);
+		gameScreen = new GameScreen(mouseEventListener, rootScreen, targetScore, 60,record);
 		setSize(1200, 720);
 		add(gameScreen);
 
-		playBackgroundMusic("resource/sound/background_music.mp3");
+		playBackgroundMusic("resource/sound/main_back.mp3");
 
 		System.out.println("게임씬 이동");
 
 		revalidate();
 	}
 
-	public void moveToResultScreen(boolean inputResult, int inputsandwichCount, int inputTimer) {
+	public void moveToResultScreen(boolean inputResult, int inputsandwichCount, int inputTimer, int record) {
 		clearFrame();
 
-		resultScreen = new ResultScreen(mouseEventListener,rootScreen, inputResult, inputsandwichCount, inputTimer);
+		resultScreen = new ResultScreen(mouseEventListener,rootScreen, inputResult, inputsandwichCount, inputTimer, record);
 		setSize(1200, 720);
 		add(resultScreen);
 		
 		if(inputResult)
-			playBackgroundMusic("resource/sound/Game_complete.mp3");
+			playBackgroundMusic("resource/sound/mission_complete.mp3");
 		else
-			playBackgroundMusic("resource/sound/Game_fail.mp3");
+			playBackgroundMusic("resource/sound/mission_fail.mp3");
 
 		System.out.println("결과씬 이동");
 
@@ -118,7 +118,7 @@ public class GameManagement extends JFrame {
 		addMouseListener(mouseEventListener);
 	    addMouseMotionListener(mouseEventListener);
 
-		moveToStartScreen();
+		moveToStartScreen(highscore);
 	}
 	
 	public static void main(String[] args) {
