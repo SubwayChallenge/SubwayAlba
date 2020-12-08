@@ -22,7 +22,6 @@ public class StartScreen extends JPanel implements Runnable{
 		backgroundImg = new ImageIcon("resource/background.png").getImage();
 
 		highscore =record;
-		System.out.println(highscore);
 		mouse 	  = inputMouseListener;
 		startScreen = inputStartScreen;
 		flag = false;
@@ -58,7 +57,6 @@ public class StartScreen extends JPanel implements Runnable{
 	
 	private void buttonEvent() {
 
-		//System.out.println(mouse.getMouseXPos());
 		if(mouse.getMouseXPos()>540 && mouse.getMouseXPos()<660 && mouse.getMouseYPos()>300 && mouse.getMouseYPos()<440) {
 			startBtnImg = new ImageIcon("resource/startbutton2.png").getImage();
 		}

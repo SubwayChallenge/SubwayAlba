@@ -13,7 +13,6 @@ public class BgmPlayer implements Runnable{
 		filePath = inputFilePath;
 		playT = new Thread(this);
 		playT.start();
-		//System.out.println("asd");
 	}
 	
 	public void stop() {

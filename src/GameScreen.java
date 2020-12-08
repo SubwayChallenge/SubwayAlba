@@ -154,7 +154,6 @@ public class GameScreen extends JPanel implements Runnable {
 			   clickPositionX < SandwichIngredientLeftSpace + ((i-1)*SandwichIngredientItemSpace)+SandwichIngredientItemWidth &&
 			   clickPositionY > SandwichIngredientTopSpace+35 && clickPositionY < SandwichIngredientTopSpace+SandwichIngredientItemHeight+35) {
 
-				System.out.println("click: " + selectedSandwichMenuNumber);
 
 				if(userSandwichCount == 7) {
 					sendSandwich();
@@ -222,9 +221,7 @@ public class GameScreen extends JPanel implements Runnable {
 
 			gameScreen.playEffectSound("resource/sound/sandwich_stack.mp3");
 		}
-		else{
-			System.out.println("You cannot stack any more");
-		}
+
 	}//method makeSandwich - 샌드위치 쌓기
 	
 	private void sendSandwich() {
@@ -243,12 +240,10 @@ public class GameScreen extends JPanel implements Runnable {
 			}
 		}
 		if(solutionCheck) {
-			System.out.println("correct");
 			gameScreen.playEffectSound("resource/sound/same_sandwich.mp3");
 			madeCount += 1;
-		}else{s
+		}else{
 			gameScreen.playEffectSound("resource/sound/diff_sandwich.mp3");
-			System.out.println("fail");
 		}
 		createExampleSandwich();
 	}//method sendsandwich - 현재 만든 샌드위치를 제출하고 정답 확인

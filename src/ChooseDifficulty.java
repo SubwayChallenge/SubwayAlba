@@ -14,12 +14,12 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 	ImageIcon open= new ImageIcon("resource/open1.png");
 	ImageIcon open2= new ImageIcon("resource/open2.png");
 
-	ImageIcon selectedDifficulty=new ImageIcon("resource/checked.png");//104, 누를 때 생기는 원
+	ImageIcon selectedDifficulty=new ImageIcon("resource/checked.png");
 	ImageIcon chooseErrorMessage=new ImageIcon("resource/errormsg.png");
 	ImageIcon three = new ImageIcon("resource/three.png");
 	ImageIcon five = new ImageIcon("resource/five.png");
 	ImageIcon eight = new ImageIcon("resource/eight.png");
-	ImageIcon backImg=new ImageIcon("resource/background2.png");//71
+	ImageIcon backImg=new ImageIcon("resource/background2.png");
 
 	ImageIcon openImg, open2Img;
 	ImageIcon check;
@@ -47,14 +47,12 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		chooseDifficulty = inputRootFrame;
 		flag = false;
 		highscore =record;
-		System.out.println(highscore);
 
 		mouseEventT = new Thread(this);
 		mouseEventT.start();
 	}
 	
 	public void clearExitScene() {
-		System.out.println("ClearExitScene");
 		if(mouseEventT!=null) {
 			flag = true;
 			mouseEventT.interrupt();
@@ -118,9 +116,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean easy=((xx>=row1-70&&xx<=row1+70)&&(yy>=col1-56&&yy<=col1+56));
 		boolean normal=((xx>=row1-70&&xx<=row1+70)&&(yy>=col2-56&&yy<=col2+56));
 		boolean hard=((xx>=row1-70&&xx<=row1+70)&&(yy>=col3-56&&yy<=col3+56));
-
 		boolean isOpen=((xx>=800+6&&xx<=800+180)&&(yy>=400+100&&yy<=400+169)); //270
-
 		if(easy){
 			chooseDifficulty.playEffectSound("resource/sound/button_sound.mp3");
 			orders=3;
@@ -129,7 +125,6 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 			error_x=-300;
 			error_y=-300;
 		}
-
 		if(normal){
 			chooseDifficulty.playEffectSound("resource/sound/button_sound.mp3");
 			orders=5;
@@ -138,7 +133,6 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 			error_x=-300;
 			error_y=-300;
 		}
-
 		if(hard){
 			chooseDifficulty.playEffectSound("resource/sound/button_sound.mp3");
 			orders=8;
@@ -147,7 +141,6 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 			error_x=-300;
 			error_y=-300;
 		}
-
 		if(isOpen){
 			if(orders==0){
 				error_x=130;
@@ -171,7 +164,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 		boolean normal=((xx>=row1-70&&xx<=row1+70)&&(yy>=col2-56&&yy<=col2+56));
 		boolean hard=((xx>=row1-70&&xx<=row1+70)&&(yy>=col3-56&&yy<=col3+56));
 
-		boolean isOpen=((xx>=800+6&&xx<=800+180)&&(yy>=400+100&&yy<=400+169)); //270
+		boolean isOpen=((xx>=800+6&&xx<=800+180)&&(yy>=400+100&&yy<=400+169));
 
 		if(easy){
 			levelNum =0;
@@ -195,7 +188,7 @@ public class ChooseDifficulty extends JPanel implements Runnable{
 			level_x=350;
 			level_y=400;
 		}
-		//if the mouse is on the 'start', 'start' color is change to orange 
+		//if the mouse is on the 'start', 'start' button changes
 		if(isOpen){
 			openImg = open2Img;
 		}

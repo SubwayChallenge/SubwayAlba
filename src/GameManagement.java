@@ -37,8 +37,7 @@ public class GameManagement extends JFrame {
 		add(startScreen);
 
 		playBackgroundMusic("resource/sound/main_music.mp3");
-		
-		System.out.println("메인씬 이동");
+
 		
 		revalidate();
 	}
@@ -51,8 +50,7 @@ public class GameManagement extends JFrame {
 		add(chooseDifficulty);
 
 		playBackgroundMusic("resource/sound/background_music.mp3");
-		
-		System.out.println("난이도 고르기 이동");
+
 
 		revalidate();
 	}
@@ -66,7 +64,6 @@ public class GameManagement extends JFrame {
 
 		playBackgroundMusic("resource/sound/choose_level.mp3");
 
-		System.out.println("게임씬 이동");
 
 		revalidate();
 	}
@@ -83,7 +80,6 @@ public class GameManagement extends JFrame {
 		else
 			playBackgroundMusic("resource/sound/Game_fail2.mp3");
 
-		System.out.println("결과씬 이동");
 
 		revalidate();
 	}
